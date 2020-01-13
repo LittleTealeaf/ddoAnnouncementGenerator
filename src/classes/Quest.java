@@ -1,8 +1,5 @@
 package classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * A Class that represents a Quest or a Raid in DDO
  * 
@@ -15,6 +12,8 @@ public class Quest {
 	private String pack;
 	private boolean isRaid;
 	private String flagging;
+	private int absMinLevel;
+	private int absMaxLevel;
 
 	/**
 	 * Creates an empty {@code Quest quest} class
@@ -23,7 +22,14 @@ public class Quest {
 		name = "";
 		pack = "";
 		isRaid = false;
-		setFlagging("");
+		flagging = "";
+	}
+	
+	public Quest(String name) {
+		this.name = name;
+		pack = "";
+		isRaid = false;
+		flagging = "";
 	}
 
 	/**
@@ -98,5 +104,29 @@ public class Quest {
 	 */
 	public void setFlagging(String flagging) {
 		this.flagging = flagging;
+	}
+
+	public int getAbsMinLevel() {
+
+		return absMinLevel;
+
+	}
+
+	public void setAbsMinLevel(int absMinLevel) {
+
+		this.absMinLevel = absMinLevel;
+
+	}
+
+	public int getAbsMaxLevel() {
+
+		return absMaxLevel;
+
+	}
+
+	public void setAbsMaxLevel(int absMaxLevel) {
+
+		this.absMaxLevel = absMaxLevel;
+
 	}
 }

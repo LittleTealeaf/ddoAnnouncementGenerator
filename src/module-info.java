@@ -1,6 +1,7 @@
 module ddoAnnouncementGenerator {
 
 	exports application;
+	exports classes;
 	exports ui to javafx.graphics;
 
 	requires javafx.base;

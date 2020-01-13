@@ -1,11 +1,15 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javafx.scene.image.Image;
 import net.harawata.appdirs.AppDirsFactory;
 
 /**
@@ -13,7 +17,7 @@ import net.harawata.appdirs.AppDirsFactory;
  * @author Tealeaf
  *
  */
-public class System {
+public class Data {
 	
 	/**
 	 * The directory of the application local memory.<br>
@@ -74,5 +78,28 @@ public class System {
 			writer.close();
 		} catch(Exception e) {}
 
+	}
+	
+	/**
+	 * A categorization containing methods to read resources
+	 * @author Tealeaf
+	 *
+	 */
+	public static class Resource {
+		public static InputStream getInputStream(String name) {
+			return ClassLoader.getSystemResourceAsStream(name);
+		}
+
+		public static BufferedReader getBufferedReader(String name) {
+			return new BufferedReader(getInputStreamReader(name));
+		}
+
+		public static InputStreamReader getInputStreamReader(String name) {
+			return new InputStreamReader(getInputStream(name));
+		}
+
+		public static Image getImage(String name) {
+			return new Image(getInputStream(name));
+		}
 	}
 }
