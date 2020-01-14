@@ -6,6 +6,7 @@ import classes.Difficulty;
 import classes.DifficultyRange;
 import classes.Quest;
 import classes.QuestInstance;
+import classes.Quests;
 import classes.Settings;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -131,6 +132,7 @@ quests.getChildren().clear();
 			maxLevel.setPrefWidth(75);
 			
 			Button bEditQuest = new Button("Edit");
+			bEditQuest.setOnAction(e -> EditQuest.open(Quests.getQuest(q.getQuest())));
 			
 			Button bDelete = new Button("Delete");
 			bDelete.setOnAction(e -> {

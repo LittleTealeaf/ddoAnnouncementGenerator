@@ -10,7 +10,7 @@ public class QuestInstance {
 	private DifficultyRange range;
 	
 	public QuestInstance(Quest quest) {
-		this.setQuest(quest);
+		this.setQuest(Quests.getQuest(quest));
 		levelMin = quest.getAbsMinLevel();
 		levelMax = quest.getAbsMaxLevel();
 		difficulty = Difficulty.NORMAL;

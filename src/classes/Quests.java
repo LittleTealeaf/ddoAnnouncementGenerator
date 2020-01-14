@@ -19,7 +19,7 @@ public class Quests {
 	
 	public static void load() {
 		try {
-			Data.staticJSON.fromJson(Files.newBufferedReader(Data.getAppFile(true,"Quests.json").toPath()), Settings.class);
+			Data.staticJSON.fromJson(Files.newBufferedReader(Data.getAppFile(true,"Quests.json").toPath()), Quests.class);
 		} catch(Exception e) {
 			new Quest();
 			save();
@@ -27,6 +27,16 @@ public class Quests {
 	}
 	
 	public static void save() {
-		Data.writeFile(Data.getAppFile(true,"Quests.json"), Data.staticJSON.toJson(new Settings()));
+		Data.writeFile(Data.getAppFile(true,"Quests.json"), Data.staticJSON.toJson(new Quests()));
+	}
+	
+	public static Quest getQuest(Quest quest) {
+		System.out.println(quests);
+		if(quests == null) quests = new ArrayList<Quest>();
+		else for(Quest q : quests) if(q.getUuid().contentEquals(quest.getUuid())) return q;
+		System.out.println("Added " + quest);
+		quests.add(quest);
+		save();
+		return quest;
 	}
 }

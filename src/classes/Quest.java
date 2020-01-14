@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.UUID;
+
 /**
  * A Class that represents a Quest or a Raid in DDO
  * 
@@ -10,6 +12,7 @@ public class Quest {
 
 	private String name;
 	private String pack;
+	private String uuid;
 	private boolean isRaid;
 	private String flagging;
 	private int absMinLevel;
@@ -19,10 +22,7 @@ public class Quest {
 	 * Creates an empty {@code Quest quest} class
 	 */
 	public Quest() {
-		name = "";
-		pack = "";
-		isRaid = false;
-		flagging = "";
+		this("");
 	}
 	
 	public Quest(String name) {
@@ -30,6 +30,7 @@ public class Quest {
 		pack = "";
 		isRaid = false;
 		flagging = "";
+		setUuid(UUID.randomUUID().toString());
 	}
 
 	/**
@@ -128,5 +129,21 @@ public class Quest {
 
 		this.absMaxLevel = absMaxLevel;
 
+	}
+
+	public String getUuid() {
+
+		return uuid;
+
+	}
+
+	public void setUuid(String uuid) {
+
+		this.uuid = uuid;
+
+	}
+	
+	public String toString() {
+		return (isRaid ? "RAID: " : "QUEST: ") + name;
 	}
 }
