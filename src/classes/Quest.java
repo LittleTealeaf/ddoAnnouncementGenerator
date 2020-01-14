@@ -31,6 +31,8 @@ public class Quest {
 		isRaid = false;
 		flagging = "";
 		setUuid(UUID.randomUUID().toString());
+		absMinLevel = 1;
+		absMaxLevel = 30;
 	}
 
 	/**

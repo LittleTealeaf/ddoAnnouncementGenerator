@@ -38,9 +38,12 @@ public class Root extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		ann = new Announcement();
-		ann.addQuest(new QuestInstance(new Quest("QUEST")));
-		ann.addQuest(new QuestInstance(new Quest("ONE")));
-		ann.addQuest(new QuestInstance(new Quest("TWO")));
+		
+		for(String s : new String[] {"01e9fj45k6jie9f","f8wej9f02j3f","f9we0jf0e9e"}) {
+			Quest q = new Quest();
+			q.setUuid(s);
+			ann.addQuest(new QuestInstance(q));
+		}
 
 		try {
 			primaryStage.setMaximized(Settings.startMaximized);
@@ -102,7 +105,7 @@ public class Root extends Application {
 		return r;
 	}
 
-	private static void updateQuests() {
+	public static void updateQuests() {
 quests.getChildren().clear();
 		for(int i = 0; i < ann.getQuests().size(); i++) {
 			QuestInstance q = ann.getQuests().get(i);
@@ -123,11 +126,13 @@ quests.getChildren().clear();
 		
 			Spinner<Integer> minLevel = new Spinner<Integer>();
 			minLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(q.getLevelMin(), q.getLevelMax(), q.getLevelMin()));
+			minLevel.valueProperty().addListener((e,o,n) -> q.setLevelMin(n));
 			minLevel.setEditable(true);
 			minLevel.setPrefWidth(75);
 			
 			Spinner<Integer> maxLevel = new Spinner<Integer>();
 			maxLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(q.getLevelMin(), q.getLevelMax(), q.getLevelMax()));
+			maxLevel.valueProperty().addListener((e,o,n) -> q.setLevelMax(n));
 			maxLevel.setEditable(true);
 			maxLevel.setPrefWidth(75);
 			
