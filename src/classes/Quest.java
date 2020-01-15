@@ -7,11 +7,16 @@ import java.util.UUID;
 /**
  * <b>Variables:</b>
  * <ul>
- * <li>{@code name} - Name of the Quest</li>
- * <li>{@code uuid} - Unique Identifier</li>
- * <li>{@code pack} - Adventure Pack</li>
- * <li>{@code isRaid} - Is the adventure a raid</li>
- * <li>{@code versions} - An {@link ArrayList} of {@link QuestVersion} objects
+ * <li>{@code name} - Name of the Quest<br>
+ * <i>default: {@code ""}</i></li>
+ * <li>{@code uuid} - Unique Identifier<br>
+ * <i>default: {@link UUID#randomUUID() UUID.randomUUID().toString()}</i></li>
+ * <li>{@code pack} - Adventure Pack<br>
+ * <i>default: {@code ""}</i></li>
+ * <li>{@code isRaid} - Is the adventure a raid<br>
+ * <i>default: {@code false}</i></li>
+ * <li>{@code versions} - An {@link ArrayList} of {@link QuestVersion} objects<br>
+ * <i>default: empty {@link ArrayList} of {@link QuestVersion Quest Versions}
  * </ul>
  * 
  * @author Tealeaf
@@ -28,33 +33,47 @@ public class Quest {
 
 	/**
 	 * Creates an empty {@code Quest} object with set parameters<br>
+	 * <br>
+	 * <b>Other Constructors:</b>
 	 * <ul>
-	 * <li>{@code name} = ""</li>
-	 * <li>{@code UUID} = {@link UUID#randomUUID() UUID.randomUUID().toString()}</li>
-	 * <li>{@code pack} = ""</li>
-	 * <li>{@code isRaid} = false</li>
-	 * <li>{@code versions} = an empty {@link QuestVersion} {@link ArrayList}</li>
+	 * <li>{@link #Quest(String)}</li>
+	 * <li>
+	 * {@link #Quest(String, List)}</li>
+	 * <li>
+	 * {@link #Quest(String, List, boolean)}</li>
+	 * <li>
+	 * {@link #Quest(String, List, boolean, String)}</li>
+	 * <li>
+	 * {@link #Quest(String, String)}</li>
+	 * <li>
+	 * {@link #Quest(String, String, List)}</li>
+	 * <li>
+	 * {@link #Quest(String, String, List, boolean)}</li>
+	 * <li>
+	 * {@link #Quest(String, String, List, boolean, String)}</li>
 	 * </ul>
 	 * 
-	 * @see UUID
 	 * @see Quest
-	 * @see QuestVersion
+	 * 
 	 */
 	public Quest() {
 		this("");
 	}
 
 	/**
-	 * Creates an empty {@code Quest} object with set parameters
+	 * Creates an empty {@code Quest} object with a set name
 	 * 
-	 * @param name
+	 * @param name Set Name of the {@code Quest}
+	 * @see Quest
 	 */
 	public Quest(String name) {
 		this(name, new ArrayList<QuestVersion>());
 	}
 
 	/**
-	 * 
+	 * Creates an empty {@code Quest} object with set parameters
+	 * <br>
+	 * Creates 
 	 * @param name
 	 * @param versions
 	 */
