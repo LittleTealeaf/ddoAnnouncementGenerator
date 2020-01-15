@@ -3,7 +3,7 @@ module ddoAnnouncementGenerator {
 	exports application;
 	exports classes;
 	exports ui to javafx.graphics;
-	
+
 	opens classes to com.google.gson;
 
 	requires javafx.base;

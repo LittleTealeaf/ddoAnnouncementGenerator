@@ -1,151 +1,249 @@
 package classes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
- * A Class that represents a Quest or a Raid in DDO
+ * <b>Variables:</b>
+ * <ul>
+ * <li>{@code name} - Name of the Quest</li>
+ * <li>{@code uuid} - Unique Identifier</li>
+ * <li>{@code pack} - Adventure Pack</li>
+ * <li>{@code isRaid} - Is the adventure a raid</li>
+ * <li>{@code versions} - An {@link ArrayList} of {@link QuestVersion} objects
+ * </ul>
  * 
  * @author Tealeaf
- *
+ * @see QuestVersion
+ * @see ArrayList
  */
 public class Quest {
 
 	private String name;
-	private String pack;
 	private String uuid;
+	private String pack;
 	private boolean isRaid;
-	private String flagging;
-	private int absMinLevel;
-	private int absMaxLevel;
+	private List<QuestVersion> versions;
 
 	/**
-	 * Creates an empty {@code Quest quest} class
+	 * Creates an empty {@code Quest} object with set parameters<br>
+	 * <ul>
+	 * <li>{@code name} = ""</li>
+	 * <li>{@code UUID} = {@link UUID#randomUUID() UUID.randomUUID().toString()}</li>
+	 * <li>{@code pack} = ""</li>
+	 * <li>{@code isRaid} = false</li>
+	 * <li>{@code versions} = an empty {@link QuestVersion} {@link ArrayList}</li>
+	 * </ul>
+	 * 
+	 * @see UUID
+	 * @see Quest
+	 * @see QuestVersion
 	 */
 	public Quest() {
 		this("");
 	}
-	
+
+	/**
+	 * Creates an empty {@code Quest} object with set parameters
+	 * 
+	 * @param name
+	 */
 	public Quest(String name) {
-		this.name = name;
-		pack = "";
-		isRaid = false;
-		flagging = "";
-		setUuid(UUID.randomUUID().toString());
-		absMinLevel = 1;
-		absMaxLevel = 30;
+		this(name, new ArrayList<QuestVersion>());
 	}
 
 	/**
-	 * Gets the Quest Name
 	 * 
-	 * @return Name of the {@link Quest quest}
+	 * @param name
+	 * @param versions
 	 */
+	public Quest(String name, List<QuestVersion> versions) {
+		this(name, versions, false);
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param versions
+	 * @param isRaid
+	 */
+	public Quest(String name, List<QuestVersion> versions, boolean isRaid) {
+		this(name, versions, isRaid, "");
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param versions
+	 * @param isRaid
+	 * @param pack
+	 */
+	public Quest(String name, List<QuestVersion> versions, boolean isRaid, String pack) {
+		this(name, UUID.randomUUID().toString(), versions, isRaid, pack);
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param uuid
+	 */
+	public Quest(String name, String uuid) {
+		this(name, uuid, new ArrayList<QuestVersion>());
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param uuid
+	 * @param versions
+	 */
+	public Quest(String name, String uuid, List<QuestVersion> versions) {
+		this(name, uuid, versions, false);
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param uuid
+	 * @param versions
+	 * @param isRaid
+	 */
+	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid) {
+		this(name, uuid, versions, isRaid, "");
+	}
+
+	/**
+	 * Creates a {@code Quest} object with given parameters
+	 * 
+	 * @param name     {@link Quest} name to give the object
+	 * @param uuid
+	 * @param versions
+	 * @param isRaid
+	 * @param pack
+	 */
+	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid, String pack) {
+		this.name = name;
+		this.uuid = uuid;
+		this.pack = pack;
+		this.isRaid = isRaid;
+		this.versions = versions;
+	}
+
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * Sets the Quest Name
-	 * 
-	 * @param name New name to give the {@link Quest quest} object
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * Gets the Quest Pack
-	 * 
-	 * @return Pack that the {@link Quest quest} belongs to
-	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public String getPack() {
 		return pack;
 	}
 
-	/**
-	 * Sets the Quest Pack
-	 * 
-	 * @param pack Adventure Pack that the {@link Quest quest} belongs to
-	 */
 	public void setPack(String pack) {
 		this.pack = pack;
 	}
 
-	/**
-	 * Gets whether or not the Quest is a Raid
-	 * 
-	 * @return {@code True} if the {@link Quest quest} is a raid, {@code False} if the {@link Quest
-	 *         quest} is not a raid
-	 */
 	public boolean isRaid() {
 		return isRaid;
 	}
 
-	/**
-	 * Sets whether or not the Quest is a Raid
-	 * 
-	 * @param isRaid Set to {@code True} if the {@link Quest quest} is a raid, if not then set to
-	 *               {@code False}
-	 */
 	public void setRaid(boolean isRaid) {
 		this.isRaid = isRaid;
 	}
 
-	/**
-	 * Gets the quest flagging
-	 * 
-	 * @return Flagging required before being able to enter the {@link Quest quest}
-	 */
-	public String getFlagging() {
-		return flagging;
+	public List<QuestVersion> getVersions() {
+		return versions;
 	}
 
-	/**
-	 * Sets the quest flagging
-	 * 
-	 * @param flagging The flagging required before being able to enter the {@link Quest quest}
-	 */
-	public void setFlagging(String flagging) {
-		this.flagging = flagging;
+	public QuestVersion getVersion(LevelRange levelRange) {
+		for(QuestVersion v : versions) if(v.getLevelRange() == levelRange) return v;
+		return null;
 	}
 
-	public int getAbsMinLevel() {
-
-		return absMinLevel;
-
+	public void setVersions(List<QuestVersion> versions) {
+		this.versions = versions;
 	}
 
-	public void setAbsMinLevel(int absMinLevel) {
-
-		this.absMinLevel = absMinLevel;
-
+	public void addVersion(QuestVersion version) {
+		this.versions.add(version);
 	}
 
-	public int getAbsMaxLevel() {
-
-		return absMaxLevel;
-
+	public void removeVersion(QuestVersion version) {
+		this.versions.remove(version);
 	}
 
-	public void setAbsMaxLevel(int absMaxLevel) {
+	public static class QuestVersion {
 
-		this.absMaxLevel = absMaxLevel;
+		private LevelRange levelRange;
+		private int minLevel;
+		private int maxLevel;
 
+		public QuestVersion(LevelRange levelRange, int minLevel, int maxLevel) {
+			this.levelRange = levelRange;
+			this.minLevel = minLevel;
+			this.maxLevel = maxLevel;
+		}
+
+		public LevelRange getLevelRange() {
+			return levelRange;
+		}
+
+		public void setLevelRange(LevelRange levelRange) {
+			this.levelRange = levelRange;
+		}
+
+		public int getMinLevel() {
+			return minLevel;
+		}
+
+		public void setMinLevel(int minLevel) {
+			this.minLevel = minLevel;
+		}
+
+		public int getMaxLevel() {
+			return maxLevel;
+		}
+
+		public void setMaxLevel(int maxLevel) {
+			this.maxLevel = maxLevel;
+		}
 	}
 
-	public String getUuid() {
+	public static enum LevelRange {
 
-		return uuid;
+		HEROIC("Heroic", "H"),
+		EPIC("Epic", "E"),
+		LEGENDARY("Legendary", "L");
 
-	}
+		private String fullName;
+		private String shortName;
 
-	public void setUuid(String uuid) {
+		LevelRange(String fullName, String shortName) {
+			this.fullName = fullName;
+			this.shortName = shortName;
+		}
 
-		this.uuid = uuid;
+		public String getFullName() {
+			return fullName;
+		}
 
-	}
-	
-	public String toString() {
-		return (isRaid ? "RAID: " : "QUEST: ") + name;
+		public String getShortName() {
+			return shortName;
+		}
+
+		public String toString() {
+			return getFullName();
+		}
 	}
 }
