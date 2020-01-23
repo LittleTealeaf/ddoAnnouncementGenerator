@@ -325,6 +325,9 @@ public class Quest {
 	 * <b>Variables:</b><br>
 	 * <ul>
 	 * <li>{@code levelRange} - the {@link LevelRange} of the {@code QuestVersion}</li>
+	 * <li>{@code questLevel} - the Level of the {@link QuestVersion}</li>
+	 * <li>{@code minLevel} - the default Minimum Level of the {@code QuestVersion}</li>
+	 * <li>{@code maxLevel} - the default Maximum Level of the {@code QuestVersion}</li>
 	 * </ul>
 	 * 
 	 * @author Tealeaf
@@ -333,66 +336,135 @@ public class Quest {
 	public static class QuestVersion {
 
 		private LevelRange levelRange;
+		private int questLevel;
 		private int minLevel;
 		private int maxLevel;
 
+		// @formatter:off
 		/**
-		 * Creates a QuestVersion object with set parameters
-		 * @param levelRange - The {@link LevelRange level range} of this version of the {@link Quest quest}
-		 * @param minLevel - The minimum level of this version of the {@link Quest quest}
-		 * @param maxLevel - The maximum level of this version of the {@link Quest quest}
-		 * @see Quest
-		 * @see LevelRange
+		 * Creates a default Quest Version object from a set level range
+		 * <br>
+		 * <br>
+		 * Default Values:
+		 * <br>
+		 * <table>
+		 * <tr>
+		 * <td>Range</td>
+		 * <td>Level</td>
+		 * <td>Min</td>
+		 * <td>Max</td>
+		 * </tr>
+		 * <tr>
+		 * <td>HEROIC</td>
+		 * <td>1</td>
+		 * <td>1</td>
+		 * <td>20</td>
+		 * </tr>
+		 * <tr>
+		 * <td>EPIC</td>
+		 * <td>21</td>
+		 * <td>20</td>
+		 * <td>30</td>
+		 * </tr>
+		 * <tr>
+		 * <tr>
+		 * <td>
+		 * LEGENDARY
+		 * </td>
+		 * <td>
+		 * 29
+		 * </td>
+		 * <td>
+		 * 28
+		 * </td>
+		 * <td>
+		 * 30
+		 * </td>
+		 * </tr>
+		 * </table>
+		 * 
+		 * @param levelRange
 		 */
-		public QuestVersion(LevelRange levelRange, int minLevel, int maxLevel) {
+		// @formatter:on
+		public QuestVersion(LevelRange levelRange) {
 			this.levelRange = levelRange;
+
+			switch (levelRange) {
+			case HEROIC:
+				questLevel = 1;
+				minLevel = 1;
+				maxLevel = 20;
+				break;
+			case EPIC:
+				questLevel = 21;
+				minLevel = 20;
+				maxLevel = 20;
+				break;
+			case LEGENDARY:
+				questLevel = 29;
+				minLevel = 28;
+				maxLevel = 30;
+				break;
+			}
+
+		}
+
+		public QuestVersion(LevelRange levelRange, int questLevel) {
+			this.levelRange = levelRange;
+			this.questLevel = questLevel;
+
+			switch (levelRange) {
+			case HEROIC:
+				minLevel = questLevel - 2;
+				maxLevel = questLevel + 2;
+				break;
+			case EPIC:
+				minLevel = 20;
+				maxLevel = 30;
+				break;
+			case LEGENDARY:
+				minLevel = 28;
+				maxLevel = 30;
+				break;
+			}
+
+		}
+
+		public QuestVersion(LevelRange levelRange, int questLevel, int minLevel, int maxLevel) {
+			this.levelRange = levelRange;
+			this.questLevel = questLevel;
 			this.minLevel = minLevel;
 			this.maxLevel = maxLevel;
 		}
 
-		/**
-		 * Gets the Level Range of the Quest Version
-		 * @return the {@link LevelRange Level Range} of the {@link QuestVersion Quest Version}
-		 * @see LevelRange
-		 */
 		public LevelRange getLevelRange() {
 			return levelRange;
 		}
 
-		/**
-		 * Sets the Level Range of the Quest Version
-		 * @param levelRange - The {@link LevelRange level range} of this version of the {@link Quest quest}
-		 */
 		public void setLevelRange(LevelRange levelRange) {
 			this.levelRange = levelRange;
 		}
 
-		/**
-		 * Gets the Minimum Level of the Quest Version
-		 * @return the Minimum Level of the {@link QuestVersion Quest Version}
-		 */
+		public int getQuestLevel() {
+			return questLevel;
+		}
+
+		public void setQuestLevel(int questLevel) {
+			this.questLevel = questLevel;
+		}
+
 		public int getMinLevel() {
 			return minLevel;
 		}
 
-		/**
-		 * Sets the Minimum Level of the Quest Version
-		 * @param minLevel - The minimum level of this version of the {@link Quest quest}
-		 */
 		public void setMinLevel(int minLevel) {
 			this.minLevel = minLevel;
 		}
-		/**
-		 * Gets the Maximum Level of the Quest Version
-		 * @return the Maximum Level of the {@link QuestVersion Quest Version}
-		 */
+
 		public int getMaxLevel() {
 			return maxLevel;
 		}
-		/**
-		 * Sets the Maximum Level of the Quest Version
-		 * @param maxLevel - The maximum level of this version of the {@link Quest quest}
-		 */
+
 		public void setMaxLevel(int maxLevel) {
 			this.maxLevel = maxLevel;
 		}
