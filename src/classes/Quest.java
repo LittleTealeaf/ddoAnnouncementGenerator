@@ -336,32 +336,63 @@ public class Quest {
 		private int minLevel;
 		private int maxLevel;
 
+		/**
+		 * Creates a QuestVersion object with set parameters
+		 * @param levelRange - The {@link LevelRange level range} of this version of the {@link Quest quest}
+		 * @param minLevel - The minimum level of this version of the {@link Quest quest}
+		 * @param maxLevel - The maximum level of this version of the {@link Quest quest}
+		 * @see Quest
+		 * @see LevelRange
+		 */
 		public QuestVersion(LevelRange levelRange, int minLevel, int maxLevel) {
 			this.levelRange = levelRange;
 			this.minLevel = minLevel;
 			this.maxLevel = maxLevel;
 		}
 
+		/**
+		 * Gets the Level Range of the Quest Version
+		 * @return the {@link LevelRange Level Range} of the {@link QuestVersion Quest Version}
+		 * @see LevelRange
+		 */
 		public LevelRange getLevelRange() {
 			return levelRange;
 		}
 
+		/**
+		 * Sets the Level Range of the Quest Version
+		 * @param levelRange - The {@link LevelRange level range} of this version of the {@link Quest quest}
+		 */
 		public void setLevelRange(LevelRange levelRange) {
 			this.levelRange = levelRange;
 		}
 
+		/**
+		 * Gets the Minimum Level of the Quest Version
+		 * @return the Minimum Level of the {@link QuestVersion Quest Version}
+		 */
 		public int getMinLevel() {
 			return minLevel;
 		}
 
+		/**
+		 * Sets the Minimum Level of the Quest Version
+		 * @param minLevel - The minimum level of this version of the {@link Quest quest}
+		 */
 		public void setMinLevel(int minLevel) {
 			this.minLevel = minLevel;
 		}
-
+		/**
+		 * Gets the Maximum Level of the Quest Version
+		 * @return the Maximum Level of the {@link QuestVersion Quest Version}
+		 */
 		public int getMaxLevel() {
 			return maxLevel;
 		}
-
+		/**
+		 * Sets the Maximum Level of the Quest Version
+		 * @param maxLevel - The maximum level of this version of the {@link Quest quest}
+		 */
 		public void setMaxLevel(int maxLevel) {
 			this.maxLevel = maxLevel;
 		}
