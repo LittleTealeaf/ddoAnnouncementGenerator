@@ -32,38 +32,18 @@ public class Quest {
 	private List<QuestVersion> versions;
 
 	/**
-	 * Creates an empty {@code Quest} object with set parameters<br>
-	 * <br>
-	 * <b>Other Constructors:</b>
-	 * <ul>
-	 * <li>{@link #Quest(String)}</li>
-	 * <li>
-	 * {@link #Quest(String, List)}</li>
-	 * <li>
-	 * {@link #Quest(String, List, boolean)}</li>
-	 * <li>
-	 * {@link #Quest(String, List, boolean, String)}</li>
-	 * <li>
-	 * {@link #Quest(String, String)}</li>
-	 * <li>
-	 * {@link #Quest(String, String, List)}</li>
-	 * <li>
-	 * {@link #Quest(String, String, List, boolean)}</li>
-	 * <li>
-	 * {@link #Quest(String, String, List, boolean, String)}</li>
-	 * </ul>
+	 * Creates a new Quest object with no name
 	 * 
 	 * @see Quest
-	 * 
 	 */
 	public Quest() {
 		this("");
 	}
 
 	/**
-	 * Creates an empty {@code Quest} object with a set name
+	 * Creates a new Quest object with set parameters
 	 * 
-	 * @param name Set Name of the {@code Quest}
+	 * @param name - Name to give the {@link Quest} object
 	 * @see Quest
 	 */
 	public Quest(String name) {
@@ -71,75 +51,105 @@ public class Quest {
 	}
 
 	/**
-	 * Creates an empty {@code Quest} object with set parameters
-	 * <br>
-	 * Creates 
-	 * @param name
-	 * @param versions
+	 * Creates a new Quest object with set parameters
+	 * 
+	 * @param name     - Name to give the {@link Quest} object
+	 * @param versions - List of {@link QuestVersion Quest Versions} that specify different versions of
+	 *                 the {@link Quest quest}
+	 * 
+	 * @see QuestVersion
 	 */
 	public Quest(String name, List<QuestVersion> versions) {
 		this(name, versions, false);
 	}
 
 	/**
+	 * Creates a new Quest object with set parameters
 	 * 
-	 * @param name
-	 * @param versions
-	 * @param isRaid
+	 * @param name     - Name to give the {@link Quest}
+	 * @param versions - List of {@link QuestVersion Quest Versions} that specify different versions of
+	 *                 the {@link Quest quest}
+	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
+	 *                 it allows for 12 players to participate.
+	 * @see QuestVersion
 	 */
 	public Quest(String name, List<QuestVersion> versions, boolean isRaid) {
 		this(name, versions, isRaid, "");
 	}
 
 	/**
+	 * Creates a new Quest object with set parameters
 	 * 
-	 * @param name
-	 * @param versions
-	 * @param isRaid
-	 * @param pack
+	 * @param name     - Name to give the {@link Quest}
+	 * @param versions - List of {@link QuestVersion Quest Versions} that specify different versions of
+	 *                 the {@link Quest quest}
+	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
+	 *                 it allows for 12 players to participate.
+	 * @param pack     - The adventure pack that the {@link Quest} is part of
 	 */
 	public Quest(String name, List<QuestVersion> versions, boolean isRaid, String pack) {
 		this(name, UUID.randomUUID().toString(), versions, isRaid, pack);
 	}
 
 	/**
+	 * Creates a new Quest object with a set {@code UUID} and parameters
 	 * 
-	 * @param name
-	 * @param uuid
+	 * @param name - Name to give the {@link Quest}
+	 * @param uuid - Unique Identifier of the {@link Quest}<br>
+	 *             Use the {@link UUID#randomUUID() UUID.randomUUID().toString()} method to generate a
+	 *             new {@link UUID}
+	 * @see UUID
 	 */
 	public Quest(String name, String uuid) {
 		this(name, uuid, new ArrayList<QuestVersion>());
 	}
 
 	/**
+	 * Creates a new Quest object with a set {@code UUID} and parameters
 	 * 
-	 * @param name
-	 * @param uuid
-	 * @param versions
+	 * @param name     - Name to give the {@link Quest}
+	 * @param uuid     - Unique Identifier of the {@link Quest}<br>
+	 *                 Use the {@link UUID#randomUUID() UUID.randomUUID().toString()} method to generate
+	 *                 a
+	 *                 new {@link UUID}
+	 * @param versions - List of {@link QuestVersion Quest Versions} that specify different versions of
+	 *                 the {@link Quest quest}
+	 * @see UUID
+	 * @see QuestVersion
 	 */
 	public Quest(String name, String uuid, List<QuestVersion> versions) {
 		this(name, uuid, versions, false);
 	}
 
 	/**
-	 * 
-	 * @param name
-	 * @param uuid
-	 * @param versions
-	 * @param isRaid
+	 * Creates a new Quest object with a set {@code UUID} and parameters
+	 * @param name     - Name to give the {@link Quest}
+	 * @param uuid     - Unique Identifier of the {@link Quest}<br>
+	 *                 Use the {@link UUID#randomUUID() UUID.randomUUID().toString()} method to generate
+	 *                 a
+	 *                 new {@link UUID}
+	 * @param versions - List of {@link QuestVersion Quest Versions} that specify different versions of
+	 *                 the {@link Quest quest}
+	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
+	 *                 it allows for 12 players to participate.
 	 */
 	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid) {
 		this(name, uuid, versions, isRaid, "");
 	}
 
 	/**
-	 * Creates a {@code Quest} object with given parameters
+	 * Creates a new Quest object with a set {@code UUID} and parameters
 	 * 
-	 * @param name     {@link Quest} name to give the object
-	 * @param uuid
-	 * @param versions
-	 * @param isRaid
-	 * @param pack
+	 * @param name     - Name to give the {@link Quest}
+	 * @param uuid     - Unique Identifier of the {@link Quest}<br>
+	 *                 Use the {@link UUID#randomUUID() UUID.randomUUID().toString()} method to generate
+	 *                 a
+	 *                 new {@link UUID}
+	 * @param versions - List of {@link QuestVersion Quest Versions} that specify different versions of
+	 *                 the {@link Quest quest}
+	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
+	 *                 it allows for 12 players to participate.
+	 * @param pack     - The adventure pack that the {@link Quest} is part of
 	 */
 	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid, String pack) {
 		this.name = name;
