@@ -343,47 +343,8 @@ public class Quest {
 		// @formatter:off
 		/**
 		 * Creates a default Quest Version object from a set level range
-		 * <br>
-		 * <br>
-		 * Default Values:
-		 * <br>
-		 * <table>
-		 * <tr>
-		 * <td>Range</td>
-		 * <td>Level</td>
-		 * <td>Min</td>
-		 * <td>Max</td>
-		 * </tr>
-		 * <tr>
-		 * <td>HEROIC</td>
-		 * <td>1</td>
-		 * <td>1</td>
-		 * <td>20</td>
-		 * </tr>
-		 * <tr>
-		 * <td>EPIC</td>
-		 * <td>21</td>
-		 * <td>20</td>
-		 * <td>30</td>
-		 * </tr>
-		 * <tr>
-		 * <tr>
-		 * <td>
-		 * LEGENDARY
-		 * </td>
-		 * <td>
-		 * 29
-		 * </td>
-		 * <td>
-		 * 28
-		 * </td>
-		 * <td>
-		 * 30
-		 * </td>
-		 * </tr>
-		 * </table>
-		 * 
-		 * @param levelRange
+		 * @param levelRange the {@link LevelRange level range} of the {@link QuestVersion}
+		 * @see LevelRange
 		 */
 		// @formatter:on
 		public QuestVersion(LevelRange levelRange) {
@@ -409,6 +370,11 @@ public class Quest {
 
 		}
 
+		/**
+		 * 
+		 * @param levelRange
+		 * @param questLevel
+		 */
 		public QuestVersion(LevelRange levelRange, int questLevel) {
 			this.levelRange = levelRange;
 			this.questLevel = questLevel;
@@ -430,6 +396,14 @@ public class Quest {
 
 		}
 
+		/**
+		 * Creates a QuestVersion object with the set variables
+		 * 
+		 * @param levelRange
+		 * @param questLevel
+		 * @param minLevel
+		 * @param maxLevel
+		 */
 		public QuestVersion(LevelRange levelRange, int questLevel, int minLevel, int maxLevel) {
 			this.levelRange = levelRange;
 			this.questLevel = questLevel;
