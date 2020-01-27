@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.UUID;
 
 /**
+ * This class describes a given Quest in Dungeons & Dragons Online. This is the base-quest to be
+ * referenced by {@code QuestReference}
+ * <br>
+ * <br>
  * <b>Variables:</b>
  * <ul>
  * <li>{@code name} - Name of the Quest<br>
@@ -167,6 +171,7 @@ public class Quest {
 	 * @param pack     - The adventure pack that the {@link Quest} is part of
 	 */
 	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid, String pack) {
+		//This is where all other constructors eventually lead to
 		this.name = name;
 		this.uuid = uuid;
 		this.pack = pack;
@@ -331,7 +336,7 @@ public class Quest {
 	 * </ul>
 	 * 
 	 * @author Tealeaf
-	 *
+	 * @see LevelRange
 	 */
 	public static class QuestVersion {
 
@@ -340,13 +345,12 @@ public class Quest {
 		private int minLevel;
 		private int maxLevel;
 
-		// @formatter:off
 		/**
 		 * Creates a default Quest Version object from a set level range
-		 * @param levelRange the {@link LevelRange level range} of the {@link QuestVersion}
+		 * 
+		 * @param levelRange - the {@link LevelRange level range} of the {@link QuestVersion}
 		 * @see LevelRange
 		 */
-		// @formatter:on
 		public QuestVersion(LevelRange levelRange) {
 			this.levelRange = levelRange;
 
@@ -371,9 +375,11 @@ public class Quest {
 		}
 
 		/**
+		 * Creates a QuestVersion with a given Level Range and the base quest level
 		 * 
-		 * @param levelRange
-		 * @param questLevel
+		 * @param levelRange - the {@link LevelRange level range} of the {@link QuestVersion}
+		 * @param questLevel - the base level of the {@link Quest quest}
+		 * @see LevelRange
 		 */
 		public QuestVersion(LevelRange levelRange, int questLevel) {
 			this.levelRange = levelRange;
@@ -399,10 +405,11 @@ public class Quest {
 		/**
 		 * Creates a QuestVersion object with the set variables
 		 * 
-		 * @param levelRange
-		 * @param questLevel
-		 * @param minLevel
-		 * @param maxLevel
+		 * @param levelRange - the {@link LevelRange Level Range} of the {@link QuestVersion}
+		 * @param questLevel - the base level of the {@link Quest quest}
+		 * @param minLevel   - the default min level of the {@link Quest quest}
+		 * @param maxLevel   - the default max level of the {@link Quest quest}
+		 * @see LevelRange
 		 */
 		public QuestVersion(LevelRange levelRange, int questLevel, int minLevel, int maxLevel) {
 			this.levelRange = levelRange;
@@ -411,63 +418,77 @@ public class Quest {
 			this.maxLevel = maxLevel;
 		}
 
+		/**
+		 * Gets the LevelRange of the QuestVersion
+		 * 
+		 * @return {@code LevelRange} of the {@link QuestVersion}
+		 * @see LevelRange
+		 */
 		public LevelRange getLevelRange() {
 			return levelRange;
 		}
 
+		/**
+		 * Sets the LevelRange of the QuestVersion
+		 * 
+		 * @param levelRange - the {@link LevelRange Level Range} of the {@link QuestVersion}
+		 * @see LevelRange
+		 */
 		public void setLevelRange(LevelRange levelRange) {
 			this.levelRange = levelRange;
 		}
 
+		/**
+		 * Gets the Quest's Base Level
+		 * 
+		 * @return {@code Base Level} of the {@link Quest}
+		 */
 		public int getQuestLevel() {
 			return questLevel;
 		}
 
+		/**
+		 * Sets the Quest's Base Level
+		 * 
+		 * @param questLevel - the base level of the {@link Quest quest}
+		 */
 		public void setQuestLevel(int questLevel) {
 			this.questLevel = questLevel;
 		}
 
+		/**
+		 * Gets the Quest's default minimum level
+		 * 
+		 * @return the {@link Quest Quest's} default minimum level
+		 */
 		public int getMinLevel() {
 			return minLevel;
 		}
 
+		/**
+		 * Sets the Quest's default minimum level
+		 * 
+		 * @param minLevel- the default min level of the {@link Quest quest}
+		 */
 		public void setMinLevel(int minLevel) {
 			this.minLevel = minLevel;
 		}
 
+		/**
+		 * Gets the Quest's default maximum level
+		 * 
+		 * @return the {@link Quest Quest's} default maximum level
+		 */
 		public int getMaxLevel() {
 			return maxLevel;
 		}
 
+		/**
+		 * Sets the Quest's default minimum level
+		 * 
+		 */
 		public void setMaxLevel(int maxLevel) {
 			this.maxLevel = maxLevel;
-		}
-	}
-
-	public static enum LevelRange {
-
-		HEROIC("Heroic", "H"),
-		EPIC("Epic", "E"),
-		LEGENDARY("Legendary", "L");
-
-		private String fullName;
-		private String shortName;
-
-		LevelRange(String fullName, String shortName) {
-			this.fullName = fullName;
-			this.shortName = shortName;
-		}
-
-		public String getFullName() {
-			return fullName;
-		}
-
-		public String getShortName() {
-			return shortName;
-		}
-
-		public String toString() {
-			return getFullName();
 		}
 	}
 }
