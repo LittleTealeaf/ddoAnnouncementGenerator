@@ -417,6 +417,18 @@ public class Quest {
 			this.minLevel = minLevel;
 			this.maxLevel = maxLevel;
 		}
+		
+		/**
+		 * Creates an array of quest versions for a given list of level ranges
+		 * @param levelRanges - the {@link LevelRange level ranges} to include
+		 * @return {@link List} of new {@link QuestVersion Quest Versions}, using the {@link Quest.QuestVersion#QuestVersion(LevelRange)}
+		 * @see Quest.QuestVersion#QuestVersion(LevelRange)
+		 */
+		public static List<QuestVersion> QuestVersions(LevelRange... levelRanges) {
+			List<QuestVersion> r = new ArrayList<QuestVersion>();
+			for(LevelRange range : levelRanges) r.add(new QuestVersion(range));
+			return r;
+		}
 
 		/**
 		 * Gets the LevelRange of the QuestVersion

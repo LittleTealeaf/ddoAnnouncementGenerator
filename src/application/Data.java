@@ -108,6 +108,7 @@ public class Data {
 	 */
 	public static class Resource {
 
+		//TODO create the input stream
 		public static InputStream getInputStream(String name) {
 			return ClassLoader.getSystemResourceAsStream(name);
 		}

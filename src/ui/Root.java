@@ -11,8 +11,6 @@ public class Root extends Application {
 
 	private static BorderPane root;
 
-	private static GridPane quests;
-
 	@Override
 	public void start(Stage primaryStage) {
 
