@@ -171,7 +171,7 @@ public class Quest {
 	 * @param pack     - The adventure pack that the {@link Quest} is part of
 	 */
 	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid, String pack) {
-		//This is where all other constructors eventually lead to
+		// This is where all other constructors eventually lead to
 		this.name = name;
 		this.uuid = uuid;
 		this.pack = pack;
@@ -322,14 +322,14 @@ public class Quest {
 	public void removeVersion(QuestVersion version) {
 		this.versions.remove(version);
 	}
-	
+
 	public String toString() {
 		String r = "";
-		r+="Quest: " + name + (isRaid ? " (Raid)" : " (Quest)");
-		r+="\nPack: " + pack;
-		r+="\nVersions:";
-		for(QuestVersion v : versions) r+="\n\t" + v.toString();
-		
+		r += "Quest: " + name + (isRaid ? " (Raid)" : " (Quest)");
+		r += "\nPack: " + pack;
+		r += "\nVersions:";
+		for(QuestVersion v : versions) r += "\n\t" + v.toString();
+
 		return r;
 	}
 
@@ -427,11 +427,13 @@ public class Quest {
 			this.minLevel = minLevel;
 			this.maxLevel = maxLevel;
 		}
-		
+
 		/**
 		 * Creates an array of quest versions for a given list of level ranges
+		 * 
 		 * @param levelRanges - the {@link LevelRange level ranges} to include
-		 * @return {@link List} of new {@link QuestVersion Quest Versions}, using the {@link Quest.QuestVersion#QuestVersion(LevelRange)}
+		 * @return {@link List} of new {@link QuestVersion Quest Versions}, using the
+		 *         {@link Quest.QuestVersion#QuestVersion(LevelRange)}
 		 * @see Quest.QuestVersion#QuestVersion(LevelRange)
 		 */
 		public static List<QuestVersion> QuestVersions(LevelRange... levelRanges) {
@@ -512,9 +514,10 @@ public class Quest {
 		public void setMaxLevel(int maxLevel) {
 			this.maxLevel = maxLevel;
 		}
-		
+
 		/**
 		 * Displays a String representation of the QuestReference
+		 * 
 		 * @see Quest#toString()
 		 */
 		public String toString() {
