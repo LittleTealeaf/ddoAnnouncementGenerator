@@ -313,6 +313,22 @@ public class Quest {
 	}
 
 	/**
+	 * Sets the Quest Version for a particular Level Range
+	 * 
+	 * @param version - The specified {@link QuestVersion quest version} of the {@link Quest} to set. If
+	 *                there are any {@link QuestVersion Quest Versions} that already has the given
+	 *                {@link LevelRange Level Range} (<i>The {@link LevelRange} in the
+	 *                {@link QuestVersion}</i>), it will replace the first one
+	 */
+	public void setVersion(QuestVersion version) {
+		for(int i = 0; i < versions.size(); i++) if(versions.get(i).levelRange.equals(version.levelRange)) {
+			versions.set(i, version);
+			break;
+		}
+		addVersion(version);
+	}
+
+	/**
 	 * Removes a particular Quest Version to the list of Quest Versions
 	 * 
 	 * @param version - The specified {@link QuestVersion} of the {@link Quest} to remove from the
