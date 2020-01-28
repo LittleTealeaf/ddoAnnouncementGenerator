@@ -322,6 +322,16 @@ public class Quest {
 	public void removeVersion(QuestVersion version) {
 		this.versions.remove(version);
 	}
+	
+	public String toString() {
+		String r = "";
+		r+="Quest: " + name + (isRaid ? " (Raid)" : " (Quest)");
+		r+="\nPack: " + pack;
+		r+="\nVersions:";
+		for(QuestVersion v : versions) r+="\n\t" + v.toString();
+		
+		return r;
+	}
 
 	/**
 	 * A specific representation of the {@link Quest quest's} different difficulty levels.
@@ -501,6 +511,14 @@ public class Quest {
 		 */
 		public void setMaxLevel(int maxLevel) {
 			this.maxLevel = maxLevel;
+		}
+		
+		/**
+		 * Displays a String representation of the QuestReference
+		 * @see Quest#toString()
+		 */
+		public String toString() {
+			return levelRange.getFullName() + " | Level: " + questLevel + " (" + minLevel + "-" + maxLevel + ")";
 		}
 	}
 }
