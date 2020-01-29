@@ -26,9 +26,6 @@ public class Root extends Application {
 			
 			//DEBUG
 			
-			DatePicker datePicker = new DatePicker();
-			
-			
 			
 			//\DEBUG
 
