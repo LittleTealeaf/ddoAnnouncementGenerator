@@ -121,6 +121,7 @@ public class Data {
 	
 	private static GsonBuilder createBuilder() {
 		GsonBuilder r = new GsonBuilder().setPrettyPrinting();
+		//TODO https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html
 	}
 
 	/**
