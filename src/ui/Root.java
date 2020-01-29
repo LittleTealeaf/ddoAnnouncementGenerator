@@ -1,5 +1,9 @@
 package ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import classes.Settings;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,6 +30,12 @@ public class Root extends Application {
 			
 			//DEBUG
 			
+			DateTimePicker picker = new DateTimePicker();
+			picker.getValueProperty().addListener((e,o,n) -> {
+				System.out.println(n);
+			});
+			
+			root.setCenter(picker);
 			
 			//\DEBUG
 

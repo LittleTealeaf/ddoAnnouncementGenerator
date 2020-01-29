@@ -9,6 +9,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
 import javafx.util.StringConverter;
 
 /**
@@ -187,7 +188,43 @@ public class TimePicker extends Spinner<LocalTime> {
 			}
 
 		});
-
+		/**
+		 * @author Tealeaf
+		 */
+		this.getEditor().setOnKeyPressed(key -> {
+			if(key.getCode() == KeyCode.TAB) {
+				if(!key.isShiftDown()) {
+					switch(mode.get()) {
+					case HOURS:
+						this.requestFocus();
+						mode.set(Mode.MINUTES);
+						break;
+					case MINUTES:
+						this.requestFocus();
+						mode.set(Mode.SECONDS);
+						break;
+					default:
+					}
+				} else {
+					switch(mode.get()) {
+					case MINUTES:
+						this.requestFocus();
+						mode.set(Mode.HOURS);
+						break;
+					case SECONDS:
+						this.requestFocus();
+						mode.set(Mode.MINUTES);
+						break;
+					default:
+					}
+				}
+			}
+		});
+/*
+ * End Added Portion 
+ */
+		
+		
 		// When the mode changes, select the new portion:
 		mode.addListener((obs, oldMode, newMode) -> newMode.select(this));
 	}
