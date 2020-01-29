@@ -1,15 +1,9 @@
 package ui;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
 import classes.Settings;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Root extends Application {

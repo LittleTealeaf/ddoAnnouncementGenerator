@@ -5,12 +5,26 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import javafx.scene.image.Image;
 import net.harawata.appdirs.AppDirsFactory;
+
+import java.lang.reflect.Type;
+import java.util.Locale;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonParseException;
 
 /**
  * Class consisting of various functions pertaining to the system, including JSON readers/writers,
@@ -31,12 +45,17 @@ public class Data {
 	 * A {@code JSON} reader and writer that reads and writes static variables as well as non-static
 	 * variables
 	 */
-	public static Gson staticJSON = new GsonBuilder().excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).setPrettyPrinting().create();
+	public static Gson staticJSON;
 	/**
 	 * A {@code JSON} reader and writer that reads and writes regular non-static variables
 	 */
-	public static Gson objectJSON = new GsonBuilder().setPrettyPrinting().create();
+	public static Gson objectJSON;
 
+	public static void load() {
+		staticJSON = createBuilder().excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
+		objectJSON = createBuilder().create();
+	}
+	
 	/**
 	 * Returns the {@code File} depending on it's path in relation to the base directory
 	 * 
@@ -99,6 +118,10 @@ public class Data {
 		} catch(Exception e) {}
 
 	}
+	
+	private static GsonBuilder createBuilder() {
+		GsonBuilder r = new GsonBuilder().setPrettyPrinting();
+	}
 
 	/**
 	 * A categorization containing methods to read resources
@@ -124,5 +147,43 @@ public class Data {
 		public static Image getImage(String name) {
 			return new Image(getInputStream(name));
 		}
+	}
+	
+	//https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html
+	
+	class LocalDateSerializer implements JsonSerializer < LocalDate > {
+	    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
+
+	    @Override
+	    public JsonElement serialize(LocalDate localDate, Type srcType, JsonSerializationContext context) {
+	        return new JsonPrimitive(formatter.format(localDate));
+	    }
+	}
+
+	class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
+	    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
+
+	    @Override
+	    public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
+	        return new JsonPrimitive(formatter.format(localDateTime));
+	    }
+	}
+
+	class LocalDateDeserializer implements JsonDeserializer < LocalDate > {
+	    @Override
+	    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+	    throws JsonParseException {
+	        return LocalDate.parse(json.getAsString(),
+	            DateTimeFormatter.ofPattern("d-MMM-yyyy").withLocale(Locale.ENGLISH));
+	    }
+	}
+
+	class LocalDateTimeDeserializer implements JsonDeserializer < LocalDateTime > {
+	    @Override
+	    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+	    throws JsonParseException {
+	        return LocalDateTime.parse(json.getAsString(),
+	            DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
+	    }
 	}
 }
