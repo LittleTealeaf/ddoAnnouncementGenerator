@@ -23,6 +23,8 @@ import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -127,12 +129,23 @@ public class Data {
 	/**
 	 * Create a gson builder that registers required classes
 	 * 
-	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
-	 *         Fadatare (Source Link)</a>
+	 * <br>
+	 * <br>
+	 * Registered Classes:
+	 * <ul>
+	 * <li>{@link LocalDate}</li>
+	 * <li>{@link LocalDateTime}</li>
+	 * </ul>
+	 * 
+	 * @author Tealeaf
+	 * @author Initial format referenced from <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+	 *         Fadatare</a>
 	 * @return A {@link GsonBuilder} that registers the classes
 	 */
 	private static GsonBuilder createBuilder() {
 		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+
+		//
 		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
 
 		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
@@ -233,5 +246,4 @@ public class Data {
 			return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
 		}
 	}
-
 }
