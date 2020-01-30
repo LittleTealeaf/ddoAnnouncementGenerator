@@ -138,7 +138,8 @@ public class Data {
 	 * </ul>
 	 * 
 	 * @author Tealeaf
-	 * @author Initial format referenced from <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+	 * @author Initial format referenced from
+	 *         <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
 	 *         Fadatare</a>
 	 * @return A {@link GsonBuilder} that registers the classes
 	 */
@@ -153,6 +154,10 @@ public class Data {
 		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
 
 		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
+
+		gsonBuilder.registerTypeAdapter(Date.class, new DateSerializer());
+
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
 
 		return gsonBuilder;
 	}
@@ -244,6 +249,36 @@ public class Data {
 		@Override
 		public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 			return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
+		}
+	}
+
+	/**
+	 * Deserializer for the Date class
+	 * 
+	 * @author <a href=
+	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
+	 *
+	 */
+	static class DateDeserializer implements JsonDeserializer<Date> {
+
+		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+			return json == null ? null : new Date(json.getAsLong());
+		}
+	}
+
+	/**
+	 * Serializer for the Date class
+	 * 
+	 * @author <a href=
+	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
+	 *@author Implemented and Edited by Tealeaf
+	 *
+	 */
+	static class DateSerializer implements JsonSerializer<Date> {
+
+		@Override
+		public JsonElement serialize(Object src, Type typeOfSrc, JsonSerializationContext context) {
+			return src == null ? null : new JsonPrimitive(((Date) src).getTime());
 		}
 	}
 }
