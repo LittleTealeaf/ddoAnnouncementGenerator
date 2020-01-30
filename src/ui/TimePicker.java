@@ -189,15 +189,19 @@ public class TimePicker extends Spinner<LocalTime> {
 			}
 
 		});
-		
+
 		/**
 		 * Uses the tab key to swap between hour, minute, and time
+		 * 
 		 * @author Tealeaf
 		 */
 		this.getEditor().setOnKeyPressed(key -> {
+
 			if(key.getCode() == KeyCode.TAB) {
+
 				if(!key.isShiftDown()) {
-					switch(mode.get()) {
+
+					switch (mode.get()) {
 					case HOURS:
 						this.requestFocus();
 						mode.set(Mode.MINUTES);
@@ -208,8 +212,10 @@ public class TimePicker extends Spinner<LocalTime> {
 						break;
 					default:
 					}
+
 				} else {
-					switch(mode.get()) {
+
+					switch (mode.get()) {
 					case MINUTES:
 						this.requestFocus();
 						mode.set(Mode.HOURS);
@@ -220,20 +226,21 @@ public class TimePicker extends Spinner<LocalTime> {
 						break;
 					default:
 					}
+
 				}
+
 			}
+
 		});
-/*
- * End Added Portion 
- */
-		
-		
+		/*
+		 * End Added Portion
+		 */
+
 		// When the mode changes, select the new portion:
 		mode.addListener((obs, oldMode, newMode) -> newMode.select(this));
 	}
 
 	public TimePicker() {
-		
 		this(LocalTime.now());
 	}
 }
