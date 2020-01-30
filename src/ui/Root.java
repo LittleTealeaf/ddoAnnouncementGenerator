@@ -28,7 +28,10 @@ public class Root extends Application {
 			
 			DateTimePicker picker = new DateTimePicker();
 			picker.getValueProperty().addListener((e,o,n) -> {
-				Data.objectJSON.toJson(new Announcement(n));
+				System.out.println(Data.objectJSON.toJson(new Announcement(n)));
+				System.out.println(new Announcement(n).getDateTime().toString());
+				System.out.println(Data.objectJSON.fromJson(Data.objectJSON.toJson(new Announcement(n)), Announcement.class).getDateTime().toString());
+				
 			});
 			
 			root.setCenter(picker);

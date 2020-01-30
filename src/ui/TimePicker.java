@@ -2,6 +2,7 @@ package ui;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -188,7 +189,9 @@ public class TimePicker extends Spinner<LocalTime> {
 			}
 
 		});
+		
 		/**
+		 * Uses the tab key to swap between hour, minute, and time
 		 * @author Tealeaf
 		 */
 		this.getEditor().setOnKeyPressed(key -> {
@@ -230,6 +233,7 @@ public class TimePicker extends Spinner<LocalTime> {
 	}
 
 	public TimePicker() {
+		
 		this(LocalTime.now());
 	}
 }

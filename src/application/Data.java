@@ -5,33 +5,25 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import javafx.scene.image.Image;
 import net.harawata.appdirs.AppDirsFactory;
-
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonParseException;
 
 /**
  * Class consisting of various functions pertaining to the system, including JSON readers/writers,
@@ -146,17 +138,17 @@ public class Data {
 	private static GsonBuilder createBuilder() {
 		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 
-		//
+		// LocalDate
 		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
-
-		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
 
 		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
 
+		// LocalDateTime
+		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
 		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
 
+		// Date
 		gsonBuilder.registerTypeAdapter(Date.class, new DateSerializer());
-
 		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
 
 		return gsonBuilder;
@@ -271,7 +263,7 @@ public class Data {
 	 * 
 	 * @author <a href=
 	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
-	 *@author Implemented and Edited by Tealeaf
+	 * @author Implemented and Edited by Tealeaf
 	 *
 	 */
 	static class DateSerializer implements JsonSerializer<Date> {
