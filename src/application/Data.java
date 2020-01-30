@@ -277,8 +277,8 @@ public class Data {
 	static class DateSerializer implements JsonSerializer<Date> {
 
 		@Override
-		public JsonElement serialize(Object src, Type typeOfSrc, JsonSerializationContext context) {
-			return src == null ? null : new JsonPrimitive(((Date) src).getTime());
+		public JsonElement serialize(Date date, Type typeOfSrc, JsonSerializationContext context) {
+			return date == null ? null : new JsonPrimitive(date.getTime());
 		}
 	}
 }
