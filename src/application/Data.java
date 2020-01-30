@@ -20,7 +20,12 @@ import javafx.scene.image.Image;
 import net.harawata.appdirs.AppDirsFactory;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -55,7 +60,7 @@ public class Data {
 		staticJSON = createBuilder().excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
 		objectJSON = createBuilder().create();
 	}
-	
+
 	/**
 	 * Returns the {@code File} depending on it's path in relation to the base directory
 	 * 
@@ -118,11 +123,25 @@ public class Data {
 		} catch(Exception e) {}
 
 	}
-	
+
+	/**
+	 * Create a gson builder that registers required classes
+	 * 
+	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+	 *         Fadatare (Source Link)</a>
+	 * @return A {@link GsonBuilder} that registers the classes
+	 */
 	private static GsonBuilder createBuilder() {
-		GsonBuilder r = new GsonBuilder().setPrettyPrinting();
-		//TODO https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html
-		return null;
+		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+
+		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+
+		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
+
+		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
+
+		return gsonBuilder;
 	}
 
 	/**
@@ -133,7 +152,7 @@ public class Data {
 	 */
 	public static class Resource {
 
-		//TODO create the input stream
+		// TODO create the input stream
 		public static InputStream getInputStream(String name) {
 			return ClassLoader.getSystemResourceAsStream(name);
 		}
@@ -150,42 +169,69 @@ public class Data {
 			return new Image(getInputStream(name));
 		}
 	}
-	
-	//https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html
-	
-	class LocalDateSerializer implements JsonSerializer < LocalDate > {
-	    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
-	    @Override
-	    public JsonElement serialize(LocalDate localDate, Type srcType, JsonSerializationContext context) {
-	        return new JsonPrimitive(formatter.format(localDate));
-	    }
+	/**
+	 * Serializer for the LocalDate class
+	 * 
+	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+	 *         Fadatare (Source Link)</a>
+	 * @see LocalDate
+	 */
+	static class LocalDateSerializer implements JsonSerializer<LocalDate> {
+
+		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
+
+		@Override
+		public JsonElement serialize(LocalDate localDate, Type srcType, JsonSerializationContext context) {
+			return new JsonPrimitive(formatter.format(localDate));
+		}
 	}
 
-	class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
-	    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
+	/**
+	 * Deserializer for the LocalDate class
+	 * 
+	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+	 *         Fadatare (Source Link)</a>
+	 * @see LocalDate
+	 */
+	static class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
 
-	    @Override
-	    public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
-	        return new JsonPrimitive(formatter.format(localDateTime));
-	    }
+		@Override
+		public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+			return LocalDate.parse(json.getAsString(), DateTimeFormatter.ofPattern("d-MMM-yyyy").withLocale(Locale.ENGLISH));
+		}
 	}
 
-	class LocalDateDeserializer implements JsonDeserializer < LocalDate > {
-	    @Override
-	    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-	    throws JsonParseException {
-	        return LocalDate.parse(json.getAsString(),
-	            DateTimeFormatter.ofPattern("d-MMM-yyyy").withLocale(Locale.ENGLISH));
-	    }
+	/**
+	 * Serializer for the LocalDateTime class
+	 * 
+	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+	 *         Fadatare (Source Link)</a>
+	 * @see LocalDateTime
+	 */
+	static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
+
+		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
+
+		@Override
+		public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
+			return new JsonPrimitive(formatter.format(localDateTime));
+		}
 	}
 
-	class LocalDateTimeDeserializer implements JsonDeserializer < LocalDateTime > {
-	    @Override
-	    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-	    throws JsonParseException {
-	        return LocalDateTime.parse(json.getAsString(),
-	            DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
-	    }
+	/**
+	 * Deserializer for the LocalDateTime class
+	 * 
+	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+	 *         Fadatare (Source Link)</a>
+	 * @see LocalDateTime
+	 */
+	static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
+
+		@Override
+		public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+			return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
+		}
 	}
+
 }

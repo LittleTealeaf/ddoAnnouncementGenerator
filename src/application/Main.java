@@ -16,6 +16,10 @@ import ui.Root;
 public class Main {
 
 	public static void main(String[] args) {
+		Data.load();
+		
+		
+		
 		
 		Quest quest = new Quest();
 		quest.setName("Killing Time");

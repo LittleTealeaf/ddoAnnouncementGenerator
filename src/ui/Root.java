@@ -1,5 +1,7 @@
 package ui;
 
+import application.Data;
+import classes.Announcement;
 import classes.Settings;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,7 +28,7 @@ public class Root extends Application {
 			
 			DateTimePicker picker = new DateTimePicker();
 			picker.getValueProperty().addListener((e,o,n) -> {
-				System.out.println(n);
+				Data.objectJSON.toJson(new Announcement(n));
 			});
 			
 			root.setCenter(picker);
