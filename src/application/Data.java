@@ -127,6 +127,7 @@ public class Data {
 	 * <ul>
 	 * <li>{@link LocalDate}</li>
 	 * <li>{@link LocalDateTime}</li>
+	 * <li>{@link Date}</li>
 	 * </ul>
 	 * 
 	 * @author Tealeaf
