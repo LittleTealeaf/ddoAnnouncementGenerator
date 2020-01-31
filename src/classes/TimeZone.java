@@ -1,8 +1,10 @@
 package classes;
 
 import java.time.ZoneId;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
-//TODO fully comment this class
+//TODO https://stackoverflow.com/questions/10545960/how-to-tackle-daylight-savings-using-timezone-in-java <-- DAYLIGHT SAVINGS TIME
 
 /**
  * A Serializable class that represents a specific Time Zone<br>
@@ -104,6 +106,15 @@ public class TimeZone {
 	public void setZone(ZoneId zoneId) {
 		this.zoneId = zoneId;
 		id = zoneId.getId();
+	}
+	
+	/**
+	 * Gets the 3 letter short name of the {@code TimeZone}<br><br>Examples: {@code EST}, {@code UTC}, {@code GMT}
+	 * @return 3 letter short name of the {@link TimeZone}
+	 */
+	public String getNameShort() {
+		return getZone().getDisplayName(TextStyle.SHORT_STANDALONE, Locale.ROOT);
+
 	}
 
 	/**
