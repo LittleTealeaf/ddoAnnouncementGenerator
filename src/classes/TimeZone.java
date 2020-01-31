@@ -48,7 +48,17 @@ public class TimeZone {
 	public TimeZone(ZoneId zoneId) {
 		setZone(zoneId);
 	}
-
+	/**
+	 * Creates a new {@code TimeZone} object.<br>
+	 * <br>
+	 * Sets the given ID if it is valid
+	 * 
+	 * @param zoneId - The {@link ZoneId} to initiate with
+	 */
+	public TimeZone(String id) {
+		setId(id);
+	}
+	
 	/**
 	 * Gets the {@code id} of the {@code TimeZone}<br>
 	 * The ID is the {@link String} representative of the {@link ZoneID}
@@ -126,5 +136,9 @@ public class TimeZone {
 	 */
 	public boolean equals(TimeZone timeZone) {
 		return this.getId().contentEquals(timeZone.getId());
+	}
+	
+	public String toString() {
+		return getNameShort();
 	}
 }

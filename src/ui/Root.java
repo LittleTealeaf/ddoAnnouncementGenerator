@@ -35,6 +35,8 @@ public class Root extends Application {
 				System.out.println(new Announcement(n).getTimeZones().get(0).getNameShort());
 			});
 			
+			//TODO Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
+			
 			root.setCenter(picker);
 			root.setBottom(area);
 			
