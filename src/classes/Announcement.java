@@ -1,6 +1,9 @@
 package classes;
 
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A Class representation of an announcement, including what quests / raids will be run, the time of the event, time zones that it will include, etc.
@@ -9,18 +12,20 @@ import java.util.Date;
  */
 public class Announcement {
 	
-	//public List<TimeZone> timeZones;
-	
 	public Date dateTime;
 	
+	public List<TimeZone> timeZones;
+	
 	public Announcement() {
-		//timeZones = new ArrayList<TimeZone>();
-		
+		timeZones = new ArrayList<TimeZone>();
+		timeZones.add(new TimeZone());
 	}
 	
 	public Announcement(Date dateTime) {
-		//this.timeZones = new ArrayList<TimeZone>();
 		this.dateTime = dateTime;
+		
+		timeZones = new ArrayList<TimeZone>();
+		timeZones.add(new TimeZone());
 	}
 
 	

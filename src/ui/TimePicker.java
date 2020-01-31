@@ -17,7 +17,7 @@ import javafx.util.StringConverter;
  * A class that represents a spinner for time
  * 
  * @author James D
- * @author <a href="https://stackoverflow.com/a/32617768">Link to Source</a>
+ * @author <a href="https://stackoverflow.com/a/32617768"><i>Link to Source</i></a>
  * @author Slightly Edited by Tealeaf
  */
 public class TimePicker extends Spinner<LocalTime> {
@@ -28,7 +28,7 @@ public class TimePicker extends Spinner<LocalTime> {
 	 * unit, and for selecting the appropriate portion in a spinner's editor
 	 * 
 	 * @author James D
-	 * @author <a href="https://stackoverflow.com/a/32617768">Link to Source</a>
+	 * @author <a href="https://stackoverflow.com/a/32617768"><i>Link to Source</i></a>
 	 * @author Slightly Edited by Tealeaf
 	 *
 	 */
@@ -189,15 +189,19 @@ public class TimePicker extends Spinner<LocalTime> {
 			}
 
 		});
-		
+
 		/**
 		 * Uses the tab key to swap between hour, minute, and time
+		 * 
 		 * @author Tealeaf
 		 */
 		this.getEditor().setOnKeyPressed(key -> {
+
 			if(key.getCode() == KeyCode.TAB) {
+
 				if(!key.isShiftDown()) {
-					switch(mode.get()) {
+
+					switch (mode.get()) {
 					case HOURS:
 						this.requestFocus();
 						mode.set(Mode.MINUTES);
@@ -208,8 +212,10 @@ public class TimePicker extends Spinner<LocalTime> {
 						break;
 					default:
 					}
+
 				} else {
-					switch(mode.get()) {
+
+					switch (mode.get()) {
 					case MINUTES:
 						this.requestFocus();
 						mode.set(Mode.HOURS);
@@ -220,14 +226,16 @@ public class TimePicker extends Spinner<LocalTime> {
 						break;
 					default:
 					}
+
 				}
+
 			}
+
 		});
-/*
- * End Added Portion 
- */
-		
-		
+		/*
+		 * End Added Portion
+		 */
+
 		// When the mode changes, select the new portion:
 		mode.addListener((obs, oldMode, newMode) -> newMode.select(this));
 	}

@@ -50,6 +50,13 @@ public class Data {
 	 */
 	public static Gson objectJSON;
 
+	/**
+	 * Initializes the {@link staticJSON} and {@link objectJSON} objects
+	 * <br>
+	 * <br>
+	 * <i>This method is the first thing to be called in the {@link Main} class, otherwise everything
+	 * breaks</i>
+	 */
 	public static void load() {
 		staticJSON = createBuilder().excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT).create();
 		objectJSON = createBuilder().create();
@@ -186,6 +193,8 @@ public class Data {
 	 * 
 	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
 	 *         Fadatare (Source Link)</a>
+	 * @author Implemented and Edited by Tealeaf
+	 *
 	 * @see LocalDate
 	 */
 	static class LocalDateSerializer implements JsonSerializer<LocalDate> {
@@ -203,6 +212,7 @@ public class Data {
 	 * 
 	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
 	 *         Fadatare (Source Link)</a>
+	 * @author Implemented and Edited by Tealeaf
 	 * @see LocalDate
 	 */
 	static class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
@@ -218,6 +228,8 @@ public class Data {
 	 * 
 	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
 	 *         Fadatare (Source Link)</a>
+	 * @author Implemented and Edited by Tealeaf
+	 *
 	 * @see LocalDateTime
 	 */
 	static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
@@ -234,7 +246,9 @@ public class Data {
 	 * Deserializer for the LocalDateTime class
 	 * 
 	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
-	 *         Fadatare (Source Link)</a>
+	 *         Fadatare (Source Link)</a>\
+	 * @author Implemented and Edited by Tealeaf
+	 *
 	 * @see LocalDateTime
 	 */
 	static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
@@ -250,6 +264,7 @@ public class Data {
 	 * 
 	 * @author <a href=
 	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
+	 * @author Implemented and Edited by Tealeaf
 	 *
 	 */
 	static class DateDeserializer implements JsonDeserializer<Date> {
