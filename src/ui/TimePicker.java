@@ -86,14 +86,17 @@ public class TimePicker extends Spinner<LocalTime> {
 
 	private final ObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.HOURS);
 
+	@SuppressWarnings("exports")
 	public ObjectProperty<Mode> modeProperty() {
 		return mode;
 	}
 
+	@SuppressWarnings("exports")
 	public final Mode getMode() {
 		return modeProperty().get();
 	}
 
+	@SuppressWarnings("exports")
 	public final void setMode(Mode mode) {
 		modeProperty().set(mode);
 	}
