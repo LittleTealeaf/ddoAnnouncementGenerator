@@ -7,7 +7,6 @@ import classes.Quest;
 import classes.Quest.QuestVersion;
 import classes.Settings;
 import ui.Root;
-import ui.TimeZoneComboBox;
 
 public class Main {
 
