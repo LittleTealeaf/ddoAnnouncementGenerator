@@ -37,4 +37,24 @@ public class Announcement {
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
+	
+	public TimeZone getDefaultTimeZone() {
+		return timeZones.get(0);
+	}
+	
+	public List<TimeZone> getTimeZones() {
+		return timeZones;
+	}
+	
+	public void setTimeZones(List<TimeZone> timeZones) {
+		this.timeZones = timeZones;
+	}
+	
+	public void addTimeZone(TimeZone timeZone) {
+		for(TimeZone zone : timeZones) if(timeZone.equals(zone)) return;
+		timeZones.add(timeZone);
+	}
+	
+	public void removeTimeZone(TimeZone timeZone) {
+	}
 }
