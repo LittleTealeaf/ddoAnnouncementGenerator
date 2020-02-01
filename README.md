@@ -1,3 +1,5 @@
 # ddoAnnouncementGenerator
  
-test
+
+Announcement Generator!
+
