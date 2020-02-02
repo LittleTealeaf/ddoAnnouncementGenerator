@@ -1,5 +1,7 @@
 package ui;
 
+import java.time.ZoneId;
+
 import application.Data;
 import classes.Announcement;
 import classes.Settings;
@@ -31,11 +33,10 @@ public class Root extends Application {
 			
 			DateTimePicker picker = new DateTimePicker();
 			picker.getValueProperty().addListener((e,o,n) -> {
-				area.setText(Data.objectJSON.toJson(new Announcement(n)));
-				System.out.println(new Announcement(n).getTimeZones().get(0).getNameShort());
+				String text = n.toString();
+				text+= "\n" + n.withZoneSameInstant(ZoneId.of("GMT"));
+				area.setText(text);
 			});
-			
-			//TODO Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
 			
 			root.setCenter(picker);
 			root.setBottom(area);

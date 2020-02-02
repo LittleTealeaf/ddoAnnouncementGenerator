@@ -21,6 +21,11 @@ public class Settings {
 	 * Whether or not to start the application in Maximized mode
 	 */
 	public static boolean startMaximized = true;
+	
+	/**
+	 * Whether to include seconds in the announcements
+	 */
+	public static boolean showSeconds = false;
 
 	/**
 	 * Initially loads the settings
