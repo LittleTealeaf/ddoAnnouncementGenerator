@@ -125,6 +125,7 @@ public class Data {
 
 	}
 
+	//TODO update jdoc
 	/**
 	 * Create a gson builder that registers required classes
 	 * 
@@ -148,6 +149,7 @@ public class Data {
 		
 		gsonBuilder.registerTypeAdapter(ZoneId.class, new GsonAdapters.ZoneIdDeserializer());
 		gsonBuilder.registerTypeAdapter(ZoneId.class, new GsonAdapters.ZoneIdSerializer());
+		//TODO TYPE ADAPTER class
 
 		return gsonBuilder;
 	}
