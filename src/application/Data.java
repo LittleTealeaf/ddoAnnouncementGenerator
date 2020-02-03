@@ -8,15 +8,15 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.Date;
-import java.util.Locale;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
@@ -145,19 +145,9 @@ public class Data {
 	 */
 	private static GsonBuilder createBuilder() {
 		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
-
-		// LocalDate
-		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
-
-		gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
-
-		// LocalDateTime
-		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
-		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
-
-		// Date
-		gsonBuilder.registerTypeAdapter(Date.class, new DateSerializer());
-		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		
+		gsonBuilder.registerTypeAdapter(ZoneId.class, new GsonAdapters.ZoneIdDeserializer());
+		gsonBuilder.registerTypeAdapter(ZoneId.class, new GsonAdapters.ZoneIdSerializer());
 
 		return gsonBuilder;
 	}
@@ -188,105 +178,137 @@ public class Data {
 		}
 	}
 
+//	/**
+//	 * Serializer for the LocalDate class
+//	 * 
+//	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+//	 *         Fadatare (Source Link)</a>
+//	 * @author Implemented and Edited by Tealeaf
+//	 *
+//	 * @see LocalDate
+//	 */
+//	static class LocalDateSerializer implements JsonSerializer<LocalDate> {
+//
+//		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
+//
+//		@Override
+//		public JsonElement serialize(LocalDate localDate, Type srcType, JsonSerializationContext context) {
+//			return new JsonPrimitive(formatter.format(localDate));
+//		}
+//	}
+//
+//	/**
+//	 * Deserializer for the LocalDate class
+//	 * 
+//	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+//	 *         Fadatare (Source Link)</a>
+//	 * @author Implemented and Edited by Tealeaf
+//	 * @see LocalDate
+//	 */
+//	static class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
+//
+//		@Override
+//		public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+//			return LocalDate.parse(json.getAsString(), DateTimeFormatter.ofPattern("d-MMM-yyyy").withLocale(Locale.ENGLISH));
+//		}
+//	}
+//
+//	/**
+//	 * Serializer for the LocalDateTime class
+//	 * 
+//	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+//	 *         Fadatare (Source Link)</a>
+//	 * @author Implemented and Edited by Tealeaf
+//	 *
+//	 * @see LocalDateTime
+//	 */
+//	static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
+//
+//		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
+//
+//		@Override
+//		public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
+//			return new JsonPrimitive(formatter.format(localDateTime));
+//		}
+//	}
+//
+//	/**
+//	 * Deserializer for the LocalDateTime class
+//	 * 
+//	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
+//	 *         Fadatare (Source Link)</a>\
+//	 * @author Implemented and Edited by Tealeaf
+//	 *
+//	 * @see LocalDateTime
+//	 */
+//	static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
+//
+//		@Override
+//		public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+//			return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
+//		}
+//	}
+//
+//	/**
+//	 * Deserializer for the Date class
+//	 * 
+//	 * @author <a href=
+//	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
+//	 * @author Implemented and Edited by Tealeaf
+//	 *
+//	 */
+//	static class DateDeserializer implements JsonDeserializer<Date> {
+//
+//		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+//			return json == null ? null : new Date(json.getAsLong());
+//		}
+//	}
+//
+//	/**
+//	 * Serializer for the Date class
+//	 * 
+//	 * @author <a href=
+//	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
+//	 * @author Implemented and Edited by Tealeaf
+//	 *
+//	 */
+//	static class DateSerializer implements JsonSerializer<Date> {
+//
+//		@Override
+//		public JsonElement serialize(Date date, Type typeOfSrc, JsonSerializationContext context) {
+//			return date == null ? null : new JsonPrimitive(date.getTime());
+//		}
+//	}
+//	
+//	static class ZoneIdSerializer implements JsonSerializer<ZoneId> {
+//		@Override
+//		public JsonElement serialize(ZoneId id, Type typeOfSrc, JsonSerializationContext context) {
+//			return id == null ? null : new JsonPrimitive(id.getId());
+//		}
+//	}
+//	;
+//	static class ZoneIdDeserializer implements JsonDeserializer<ZoneId> {
+//		public ZoneId deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+//			return json == null ? null : ZoneId.of(json.getAsString());
+//		}
+//	}
+	
 	/**
-	 * Serializer for the LocalDate class
-	 * 
-	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
-	 *         Fadatare (Source Link)</a>
-	 * @author Implemented and Edited by Tealeaf
+	 * A Categorization of all the GSON adapters
+	 * @author Tealeaf
 	 *
-	 * @see LocalDate
 	 */
-	static class LocalDateSerializer implements JsonSerializer<LocalDate> {
-
-		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
-
-		@Override
-		public JsonElement serialize(LocalDate localDate, Type srcType, JsonSerializationContext context) {
-			return new JsonPrimitive(formatter.format(localDate));
+	static class GsonAdapters {
+		static class ZoneIdSerializer implements JsonSerializer<ZoneId> {
+			public JsonElement serialize(ZoneId zone, Type typeOfSrc, JsonSerializationContext context) {
+				return zone == null ? null : new JsonPrimitive(zone.getId());
+			}
 		}
-	}
-
-	/**
-	 * Deserializer for the LocalDate class
-	 * 
-	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
-	 *         Fadatare (Source Link)</a>
-	 * @author Implemented and Edited by Tealeaf
-	 * @see LocalDate
-	 */
-	static class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
-
-		@Override
-		public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-			return LocalDate.parse(json.getAsString(), DateTimeFormatter.ofPattern("d-MMM-yyyy").withLocale(Locale.ENGLISH));
-		}
-	}
-
-	/**
-	 * Serializer for the LocalDateTime class
-	 * 
-	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
-	 *         Fadatare (Source Link)</a>
-	 * @author Implemented and Edited by Tealeaf
-	 *
-	 * @see LocalDateTime
-	 */
-	static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
-
-		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
-
-		@Override
-		public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
-			return new JsonPrimitive(formatter.format(localDateTime));
-		}
-	}
-
-	/**
-	 * Deserializer for the LocalDateTime class
-	 * 
-	 * @author <a href="https://www.javaguides.net/2019/11/gson-localdatetime-localdate.html">Ramesh
-	 *         Fadatare (Source Link)</a>\
-	 * @author Implemented and Edited by Tealeaf
-	 *
-	 * @see LocalDateTime
-	 */
-	static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
-
-		@Override
-		public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-			return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
-		}
-	}
-
-	/**
-	 * Deserializer for the Date class
-	 * 
-	 * @author <a href=
-	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
-	 * @author Implemented and Edited by Tealeaf
-	 *
-	 */
-	static class DateDeserializer implements JsonDeserializer<Date> {
-
-		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-			return json == null ? null : new Date(json.getAsLong());
-		}
-	}
-
-	/**
-	 * Serializer for the Date class
-	 * 
-	 * @author <a href=
-	 *         "https://makeinjava.com/date-serialization-deserialization-pojo-json-gson-example/">Source</a>
-	 * @author Implemented and Edited by Tealeaf
-	 *
-	 */
-	static class DateSerializer implements JsonSerializer<Date> {
-
-		@Override
-		public JsonElement serialize(Date date, Type typeOfSrc, JsonSerializationContext context) {
-			return date == null ? null : new JsonPrimitive(date.getTime());
+		
+		static class ZoneIdDeserializer implements JsonDeserializer<ZoneId> {
+			public ZoneId deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				return json == null ? null : ZoneId.of(json.getAsString());
+			}
 		}
 	}
 }

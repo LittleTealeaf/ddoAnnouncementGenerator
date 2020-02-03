@@ -1,10 +1,6 @@
 package application;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 import classes.LevelRange;
 import classes.Quest;
@@ -17,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		Data.load();
 		
-		ZonedDateTime now = LocalDateTime.of(2020, 2, 2, 21, 00).atZone(ZoneId.systemDefault());	
+		System.out.println(Data.objectJSON.toJson(ZoneId.systemDefault()));
 		
 		Quest quest = new Quest();
 		quest.setName("Killing Time");
@@ -28,4 +24,22 @@ public class Main {
 		Settings.loadSettings();
 		Root.display(args);
 	}
+	
+	private static class test {
+		
+		private ZoneId id;
+		
+		public test(ZoneId id) {
+			this.id = id;
+		}
+		
+		public ZoneId getId() {
+			return id;
+		}
+		
+		public void setId(ZoneId id) {
+			this.id = id;
+		}
+	}
+	
 }
