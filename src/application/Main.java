@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		Data.load();
 		
-		System.out.println(Data.objectJSON.toJson(ZoneId.systemDefault()));
+		System.out.println(Data.objectJSON.toJson(new test(ZoneId.systemDefault())));
 		
 		Quest quest = new Quest();
 		quest.setName("Killing Time");
@@ -27,18 +27,18 @@ public class Main {
 	
 	private static class test {
 		
-		private ZoneId id;
+		private ZoneId zoneId;
 		
 		public test(ZoneId id) {
-			this.id = id;
+			this.zoneId = id;
 		}
 		
 		public ZoneId getId() {
-			return id;
+			return zoneId;
 		}
 		
 		public void setId(ZoneId id) {
-			this.id = id;
+			this.zoneId = id;
 		}
 	}
 	
