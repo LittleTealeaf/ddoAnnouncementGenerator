@@ -50,8 +50,7 @@ public class Data {
 
 	/**
 	 * Initializes the {@link staticJSON} and {@link objectJSON} objects
-	 * <br>
-	 * <br>
+	 * <p>
 	 * <i>This method is the first thing to be called in the {@link Main} class, otherwise everything
 	 * breaks</i>
 	 */
