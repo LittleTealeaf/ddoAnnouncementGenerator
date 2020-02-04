@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Root extends Application {
@@ -33,12 +34,13 @@ public class Root extends Application {
 
 			DateTimePicker picker = new DateTimePicker();
 			picker.getValueProperty().addListener((e, o, n) -> {
-				String text = n.toString();
-				text += "\n" + n.withZoneSameInstant(ZoneId.of("GMT"));
+				String text = Data.objectJSON.toJson(new Announcement(n));
 				area.setText(text);
 			});
+			
+			VBox debug = new VBox(picker);
 
-			root.setCenter(picker);
+			root.setCenter(debug);
 			root.setBottom(area);
 
 			// \DEBUG

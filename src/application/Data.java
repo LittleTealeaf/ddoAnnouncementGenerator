@@ -6,7 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Writer;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -129,7 +134,9 @@ public class Data {
 	private static GsonBuilder createBuilder() {
 		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 
-		gsonBuilder.registerTypeHierarchyAdapter(ZoneId.class, new GsonAdapters.ZoneIdAdapter.Adapter());
+		gsonBuilder.registerTypeHierarchyAdapter(ZoneId.class, new GsonAdapters.ZoneIdAdapter());
+		gsonBuilder.registerTypeHierarchyAdapter(LocalDateTime.class, new GsonAdapters.LocalDateTimeAdapter());
+		gsonBuilder.registerTypeHierarchyAdapter(ZonedDateTime.class, new GsonAdapters.ZonedDateTimeAdapter());
 
 		return gsonBuilder;
 	}
@@ -169,56 +176,108 @@ public class Data {
 	static class GsonAdapters {
 
 		/**
-		 * Classes for adapting the {@link ZoneId} Class
+		 * Adapter for the {@code ZoneId} class
 		 * 
 		 * @author Tealeaf
-		 *
+		 * @see ZoneId
 		 */
-		static public class ZoneIdAdapter {
+		public static class ZoneIdAdapter extends TypeAdapter<ZoneId> {
 
-			/**
-			 * The specific adapter for the {@link ZoneId}
-			 * 
-			 * @author Tealeaf
-			 *
-			 */
-			static public class Adapter extends TypeAdapter<ZoneId> {
+			@Override
+			public void write(JsonWriter out, ZoneId value) throws IOException {
 
-				public ZoneId read(JsonReader reader) throws IOException {
-
-					if(reader.peek() == JsonToken.NULL) {
-						reader.nextNull();
-						return null;
-					}
-
-					String id = reader.nextString();
-					return ZoneId.of(id);
+				if(value == null) {
+					out.nullValue();
+				} else {
+					out.value(new Converter(value).id);
 				}
 
-				public void write(JsonWriter writer, ZoneId value) throws IOException {
-
-					if(value == null) {
-						writer.nullValue();
-					} else {
-						writer.value(new Zone(value).id);
-					}
-
-				}
 			}
 
-			/**
-			 * A converter class used to store the {@link ZoneId#getId() Id} of the {@link ZoneId}
-			 * 
-			 * @author Tealeaf
-			 *
-			 */
-			private static class Zone {
+			@Override
+			public ZoneId read(JsonReader in) throws IOException {
+
+				if(in.peek() == JsonToken.NULL) {
+					in.nextNull();
+					return null;
+				}
+
+				String id = in.nextString();
+				return ZoneId.of(id);
+			}
+
+			private static class Converter {
 
 				private String id;
 
-				public Zone(ZoneId z) {
+				public Converter(ZoneId z) {
 					this.id = z.getId();
 				}
+			}
+		}
+
+		// TODO do I really need the LocalDateTimeAdapter?
+		/**
+		 * Adapter for the {@code LocalDateTime} class
+		 * 
+		 * @author Tealeaf
+		 * @see LocalDateTime
+		 */
+		public static class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
+
+			private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HH:mm:ss");
+
+			@Override
+			public void write(JsonWriter out, LocalDateTime value) throws IOException {
+
+				if(value == null) {
+					out.nullValue();
+				} else {
+					out.value(formatter.format(value));
+				}
+
+			}
+
+			@Override
+			public LocalDateTime read(JsonReader in) throws IOException {
+
+				if(in.peek() == JsonToken.NULL) {
+					in.nextNull();
+					return null;
+				}
+
+				return LocalDateTime.parse(in.nextString(), formatter.withLocale(Locale.ENGLISH));
+			}
+		}
+
+		/**
+		 * Adapter for the {@code ZonedDateTime} class
+		 * 
+		 * @author Tealeaf
+		 * @see ZonedDateTime
+		 */
+		public static class ZonedDateTimeAdapter extends TypeAdapter<ZonedDateTime> {
+
+			@Override
+			public void write(JsonWriter out, ZonedDateTime value) throws IOException {
+
+				if(value == null) {
+					out.nullValue();
+				} else {
+					out.value(value.toString());
+				}
+
+			}
+
+			@Override
+			public ZonedDateTime read(JsonReader in) throws IOException {
+
+				if(in.peek() == JsonToken.NULL) {
+					in.nextNull();
+					return null;
+				}
+
+				return ZonedDateTime.parse(in.nextString());
 			}
 		}
 	}

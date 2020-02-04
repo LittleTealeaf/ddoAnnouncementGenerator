@@ -1,5 +1,6 @@
 package application;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import classes.LevelRange;
@@ -12,8 +13,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		Data.load();
-
-		System.out.println(Data.objectJSON.toJson(new test(ZoneId.systemDefault())));
+		
+		System.out.println(Data.objectJSON.toJson(LocalDateTime.now()));
 
 		Quest quest = new Quest();
 		quest.setName("Killing Time");

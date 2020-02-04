@@ -2,6 +2,9 @@ package classes;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.List;
 
 import application.Data;
 
@@ -30,6 +33,11 @@ public class Settings {
 	 * Whether to include seconds in the announcements
 	 */
 	public static boolean showSeconds = false;
+	
+	/**
+	 * Default list of {@link ZoneId Time Zones} to include
+	 */
+	public static List<ZoneId> defaultZones = Arrays.asList(ZoneId.systemDefault());
 
 	/**
 	 * Initially loads the settings
