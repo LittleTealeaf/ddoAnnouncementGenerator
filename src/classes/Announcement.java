@@ -28,5 +28,37 @@ public class Announcement {
 	public Announcement(ZonedDateTime time) {
 		this.time = time;
 	}
+
+	
+	public ZonedDateTime getTime() {
+		return time;
+	}
+
+	
+	public void setTime(ZonedDateTime time) {
+		this.time = time;
+	}
+
+	
+	public List<ZoneId> getTimeZones() {
+		return timeZones;
+	}
+
+	
+	public void setTimeZones(List<ZoneId> timeZones) {
+		this.timeZones = timeZones;
+	}
+
+	
+	public List<QuestReference> getQuests() {
+		return quests;
+	}
+
+	
+	public void setQuests(List<QuestReference> quests) {
+		this.quests = quests;
+	}
+	
+	
 	
 }

@@ -1,17 +1,22 @@
 package ui;
 
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import application.Data;
 import classes.Announcement;
 import classes.Settings;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uielements.DateTimePicker;
+import uielements.ZoneSelector;
 
 public class Root extends Application {
 
@@ -32,17 +37,27 @@ public class Root extends Application {
 			TextArea area = new TextArea();
 
 			// DEBUG
-
+			
+			
 			DateTimePicker picker = new DateTimePicker();
-			picker.getValueProperty().addListener((e, o, n) -> {
-				String text = Data.objectJSON.toJson(new Announcement(n));
-				area.setText(text);
+			
+			picker.setValue(ZonedDateTime.now());
+			
+			VBox debug = new VBox(picker, new ZoneSelector());
+			
+			Button bExec = new Button("Compile");
+			bExec.setOnAction(e -> {
+				Announcement a = new Announcement();
+				a.setTime(picker.getValue());
+				
+				picker.setValue(ZonedDateTime.now().plusHours(10));
+				area.setText( Data.objectJSON.toJson(a));
 			});
 			
-			VBox debug = new VBox(picker);
+			HBox bottom = new HBox(bExec,area);
 
 			root.setCenter(debug);
-			root.setBottom(area);
+			root.setBottom(bottom);
 
 			// \DEBUG
 

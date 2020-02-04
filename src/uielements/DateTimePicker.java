@@ -33,7 +33,7 @@ public class DateTimePicker extends HBox {
 		this.zonedTime.setValue(zonedTime);
 
 		date = new DatePicker();
-		date.setValue(LocalDate.now());
+		date.setValue(zonedTime.toLocalDate());
 		date.valueProperty().addListener((e, o, n) -> updateDateTime());
 
 		time = new TimePicker(LocalDateTime.ofInstant(this.zonedTime.getValue().toInstant(), ZoneId.systemDefault()).toLocalTime());
@@ -43,14 +43,22 @@ public class DateTimePicker extends HBox {
 		this.setSpacing(10);
 	}
 
-	/**
-	 * Updates the zoned time
-	 */
 	private void updateDateTime() {
 		zonedTime.setValue(time.getValue().atDate(date.getValue()).atZone(ZoneId.systemDefault()));
 	}
 
-	public ObjectProperty<ZonedDateTime> getValueProperty() {
+	public ObjectProperty<ZonedDateTime> valueProperty() {
 		return zonedTime;
+	}
+
+	public ZonedDateTime getValue() {
+		return zonedTime.getValue();
+	}
+
+	public void setValue(ZonedDateTime time) {
+		zonedTime.setValue(time);
+		date.setValue(time.toLocalDate());
+		this.time = new TimePicker(LocalDateTime.ofInstant(this.zonedTime.getValue().toInstant(), ZoneId.systemDefault()).toLocalTime());
+		this.getChildren().set(1, this.time);
 	}
 }
