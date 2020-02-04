@@ -7,8 +7,7 @@ import java.util.UUID;
 /**
  * This class describes a given Quest in Dungeons & Dragons Online. This is the base-quest to be
  * referenced by {@code QuestReference}
- * <br>
- * <br>
+ * <p>
  * <b>Variables:</b>
  * <ul>
  * <li>{@code name} - Name of the Quest<br>
@@ -351,8 +350,7 @@ public class Quest {
 
 	/**
 	 * A specific representation of the {@link Quest quest's} different difficulty levels.
-	 * <br>
-	 * <br>
+	 * <p>
 	 * <b>Variables:</b><br>
 	 * <ul>
 	 * <li>{@code levelRange} - the {@link LevelRange} of the {@code QuestVersion}</li>

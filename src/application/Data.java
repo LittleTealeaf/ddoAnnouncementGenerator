@@ -58,8 +58,7 @@ public class Data {
 	/**
 	 * Returns the {@code File} depending on it's path in relation to the base directory
 	 * 
-	 * <br>
-	 * <br>
+	 * <p>
 	 * The base directory, when used here, describes the directory of the %appdata% location for this
 	 * specific app, regardless of OS
 	 * 
@@ -80,8 +79,7 @@ public class Data {
 	/**
 	 * Returns the {@code File} depending on it's path in relation to the base directory
 	 * 
-	 * <br>
-	 * <br>
+	 * <p>
 	 * The base directory, when used here, describes the directory of the {@code %appdata%} location for
 	 * this specific app, regardless of OS
 	 * 
@@ -121,8 +119,7 @@ public class Data {
 	// TODO update jdoc
 	/**
 	 * Create a gson builder with pre-set configuration
-	 * <br>
-	 * <br>
+	 * <p>
 	 * <b>Registered Classes:</b>
 	 * <ul>
 	 * <li>{@link ZoneId}</li>

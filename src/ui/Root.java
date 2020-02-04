@@ -26,22 +26,22 @@ public class Root extends Application {
 			});
 
 			root = new BorderPane();
-			
+
 			TextArea area = new TextArea();
-			
-			//DEBUG
-			
+
+			// DEBUG
+
 			DateTimePicker picker = new DateTimePicker();
-			picker.getValueProperty().addListener((e,o,n) -> {
+			picker.getValueProperty().addListener((e, o, n) -> {
 				String text = n.toString();
-				text+= "\n" + n.withZoneSameInstant(ZoneId.of("GMT"));
+				text += "\n" + n.withZoneSameInstant(ZoneId.of("GMT"));
 				area.setText(text);
 			});
-			
+
 			root.setCenter(picker);
 			root.setBottom(area);
-			
-			//\DEBUG
+
+			// \DEBUG
 
 			Scene scene = new Scene(root, 400, 400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

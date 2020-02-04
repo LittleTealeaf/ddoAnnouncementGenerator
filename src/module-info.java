@@ -5,7 +5,7 @@ module ddoAnnouncementGenerator {
 	exports ui to javafx.graphics;
 
 	opens classes to com.google.gson;
-	//REMOVE AFTER DEBUGS
+	// REMOVE AFTER DEBUGS
 	opens application to com.google.gson;
 
 	requires javafx.base;

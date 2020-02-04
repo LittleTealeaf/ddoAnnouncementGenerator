@@ -26,12 +26,12 @@ public class DateTimePicker extends HBox {
 	public DateTimePicker() {
 		this(LocalDateTime.now().atZone(ZoneId.systemDefault()));
 	}
-	
+
 	public DateTimePicker(ZonedDateTime zonedTime) {
 		super();
-		
+
 		this.zonedTime.setValue(zonedTime);
-		
+
 		date = new DatePicker();
 		date.setValue(LocalDate.now());
 		date.valueProperty().addListener((e, o, n) -> updateDateTime());

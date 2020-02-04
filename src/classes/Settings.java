@@ -8,8 +8,12 @@ import application.Data;
 /**
  * A Class that describes any user-based settings.<br>
  * Settings are saved in the user's app directory. <br>
- * <br>
- * <b>Settings:</b><ul><li>{@link #startMaximized}</li></ul>
+ * <p>
+ * <b>Settings:</b>
+ * <ul>
+ * <li>{@link #startMaximized}</li>
+ * </ul>
+ * 
  * @author Tealeaf
  *
  */
@@ -21,7 +25,7 @@ public class Settings {
 	 * Whether or not to start the application in Maximized mode
 	 */
 	public static boolean startMaximized = true;
-	
+
 	/**
 	 * Whether to include seconds in the announcements
 	 */
@@ -33,7 +37,7 @@ public class Settings {
 	public static void loadSettings() {
 
 		try {
-			//Uses a static JSON to load the contents from the settings file, if it exists
+			// Uses a static JSON to load the contents from the settings file, if it exists
 			Data.staticJSON.fromJson(Files.newBufferedReader(Data.getAppFile(true, "Settings.json").toPath()), Settings.class);
 		} catch(IOException e) {}
 

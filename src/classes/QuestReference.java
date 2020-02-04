@@ -15,8 +15,8 @@ public class QuestReference {
 
 	private Integer minLevel;
 	private Integer maxLevel;
-	
-	//This is only to be used in-content
+
+	// This is only to be used in-content
 	private transient QuestVersion questVersion;
 
 	/**
@@ -34,12 +34,14 @@ public class QuestReference {
 	}
 
 	/**
-	 * Creates a default Quest Reference from a Quest and a given Level Range<br>
+	 * Creates a default Quest Reference from a Quest and a given Level Range
+	 * <p>
 	 * Creates a new {@link QuestReference} object referencing the given {@link Quest}, with the given
-	 * {@link LevelRange level range} if the {@link Quest} has a {@link Quest.QuestVersion Quest
-	 * Version} for that {@link LevelRange level range}<br>
-	 * If the {@link Quest} has no {@link Quest.QuestVersion Quest Version} with the given
-	 * {@link LevelRange level range}, {@code levelRange} will be set to {@code null}
+	 * {@link LevelRange level range} if the {@code Quest} has a {@link Quest.QuestVersion Quest
+	 * Version} for that {@code LevelRange}
+	 * <p>
+	 * If the {@code Quest} has no {@code QuestVersion} with the given
+	 * {@code LevelRange}, {@code levelRange} will be set to {@code null}
 	 * 
 	 * @param quest      - the {@link Quest} to reference
 	 * @param levelRange - the {@link LevelRange Level Range} to default to. if the {@link Quest} has no
@@ -54,62 +56,55 @@ public class QuestReference {
 		// Sets levelRange to null if the quest does not have that level range
 		this.levelRange = (quest.getVersion(levelRange) != null) ? levelRange : null;
 	}
-	
+
 	private QuestVersion getQuestVersion() {
-		//If the quest version is null, gets the quest version
+		// If the quest version is null, gets the quest version
 		return (questVersion != null) ? questVersion : (questVersion = quest.getVersion(levelRange));
 	}
-	
+
 	/**
 	 * Forces an update of {@code questVersion}
+	 * 
 	 * @return the updated {@link QuestVersion}
 	 */
 	private QuestVersion getUpdateQuestVersion() {
-		return (questVersion = quest.getVersion(levelRange));
+		return(questVersion = quest.getVersion(levelRange));
 	}
-	
+
 	/**
 	 * Gets the referenced quest
+	 * 
 	 * @return Referenced {@link Quest}
 	 */
 	public Quest getQuest() {
 		return quest;
 	}
 
-	
 	public void setQuest(Quest quest) {
 		this.quest = quest;
 	}
 
-	
 	public LevelRange getLevelRange() {
 		return levelRange;
 	}
 
-	
 	public void setLevelRange(LevelRange levelRange) {
 		this.levelRange = levelRange;
 	}
 
-	
 	public Integer getMinLevel() {
 		return (minLevel != null) ? minLevel : (minLevel = getQuestVersion().getMinLevel());
 	}
 
-	
 	public void setMinLevel(Integer minLevel) {
 		this.minLevel = minLevel;
 	}
 
-	
 	public Integer getMaxLevel() {
 		return (maxLevel != null) ? maxLevel : (maxLevel = getQuestVersion().getMaxLevel());
 	}
 
-	
 	public void setMaxLevel(Integer maxLevel) {
 		this.maxLevel = maxLevel;
 	}
-	
-	
 }
