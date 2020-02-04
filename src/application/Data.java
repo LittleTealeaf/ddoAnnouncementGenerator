@@ -116,7 +116,6 @@ public class Data {
 
 	}
 
-	// TODO update jdoc
 	/**
 	 * Create a gson builder with pre-set configuration
 	 * <p>
