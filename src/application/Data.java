@@ -126,7 +126,7 @@ public class Data<T> {
 	 * @return The Object, of the given {@code Class} from the serialized data
 	 */
 	public static Object deserializeObject(String json, Type Class) {
-		return objectJSON.fromJson(json, Class.getClass());
+		return objectJSON.fromJson(json, Class);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class Data<T> {
 	 * @return Object of the serialized class
 	 */
 	public static Object deserializeClass(String json, Type Class) {
-		return staticJSON.fromJson(json, Class.getClass());
+		return staticJSON.fromJson(json, Class);
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class Data<T> {
 	 * @return Object of the serialized class
 	 */
 	public static Object deserializeClass(BufferedReader reader, Type Class) {
-		return staticJSON.fromJson(reader, Class.getClass());
+		return staticJSON.fromJson(reader, Class);
 	}
 
 	/**
