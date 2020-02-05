@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -28,9 +29,10 @@ import net.harawata.appdirs.AppDirsFactory;
  * file locations, etc.
  * 
  * @author Tealeaf
+ * @param <T>
  *
  */
-public class Data {
+public class Data<T> {
 
 	/**
 	 * The directory of the application local memory.<br>
@@ -42,11 +44,11 @@ public class Data {
 	 * A {@code JSON} reader and writer that reads and writes static variables as well as non-static
 	 * variables
 	 */
-	public static Gson staticJSON;
+	private static Gson staticJSON;
 	/**
 	 * A {@code JSON} reader and writer that reads and writes regular non-static variables
 	 */
-	public static Gson objectJSON;
+	private static Gson objectJSON;
 
 	/**
 	 * Initializes the {@link staticJSON} and {@link objectJSON} objects
@@ -103,7 +105,28 @@ public class Data {
 		if(create) f.getParentFile().mkdirs();
 		return f;
 	}
+	
+	public static String serializeObject(Object src) {
+		return objectJSON.toJson(src);
+	}
 
+	
+	public static Object deserializeObject(String json, Type Class) {
+		return objectJSON.fromJson(json,Class.getClass());
+	}
+	
+	public static String serializeClass(Object src) {
+		return staticJSON.toJson(src);
+	}
+	
+	public static Object deserializeClass(String json, Type Class) {
+		return staticJSON.fromJson(json, Class.getClass());
+	}
+	
+	public static Object deserializeClass(BufferedReader reader, Type Class) {
+		return staticJSON.fromJson(reader, Class.getClass());
+	}
+	
 	/**
 	 * Writes a set of data to a file
 	 * 

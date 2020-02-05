@@ -33,7 +33,7 @@ public class Settings {
 	 * Whether to include seconds in the announcements
 	 */
 	public static boolean showSeconds = false;
-	
+
 	/**
 	 * Default list of {@link ZoneId Time Zones} to include
 	 */
@@ -46,7 +46,9 @@ public class Settings {
 
 		try {
 			// Uses a static JSON to load the contents from the settings file, if it exists
-			Data.staticJSON.fromJson(Files.newBufferedReader(Data.getAppFile(true, "Settings.json").toPath()), Settings.class);
+			// Data.staticJSON.fromJson(Files.newBufferedReader(Data.getAppFile(true,
+			// "Settings.json").toPath()), Settings.class);
+			Data.deserializeClass(Files.newBufferedReader(Data.getAppFile(true, "Settings.json").toPath()), Settings.class);
 		} catch(IOException e) {}
 
 		save();
@@ -56,6 +58,6 @@ public class Settings {
 	 * Saves the settings
 	 */
 	public static void save() {
-		Data.writeFile(Data.getAppFile(true, "Settings.json"), Data.staticJSON.toJson(new Settings()));
+		Data.writeFile(Data.getAppFile(true, "Settings.json"), Data.serializeClass(new Settings()));
 	}
 }

@@ -13,8 +13,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		Data.load();
-		
-		System.out.println(Data.objectJSON.toJson(LocalDateTime.now()));
 
 		Quest quest = new Quest();
 		quest.setName("Killing Time");
@@ -24,22 +22,5 @@ public class Main {
 
 		Settings.loadSettings();
 		Root.display(args);
-	}
-
-	private static class test {
-
-		private ZoneId zoneId;
-
-		public test(ZoneId id) {
-			this.zoneId = id;
-		}
-
-		public ZoneId getId() {
-			return zoneId;
-		}
-
-		public void setId(ZoneId id) {
-			this.zoneId = id;
-		}
 	}
 }

@@ -37,24 +37,23 @@ public class Root extends Application {
 			TextArea area = new TextArea();
 
 			// DEBUG
-			
-			
+
 			DateTimePicker picker = new DateTimePicker();
-			
+
 			picker.setValue(ZonedDateTime.now());
-			
+
 			VBox debug = new VBox(picker, new ZoneSelector());
-			
+
 			Button bExec = new Button("Compile");
 			bExec.setOnAction(e -> {
 				Announcement a = new Announcement();
 				a.setTime(picker.getValue());
-				
+
 				picker.setValue(ZonedDateTime.now().plusHours(10));
-				area.setText( Data.objectJSON.toJson(a));
+				area.setText(Data.serializeObject(a));
 			});
-			
-			HBox bottom = new HBox(bExec,area);
+
+			HBox bottom = new HBox(bExec, area);
 
 			root.setCenter(debug);
 			root.setBottom(bottom);
