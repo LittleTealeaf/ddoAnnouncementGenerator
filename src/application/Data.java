@@ -105,30 +105,70 @@ public class Data<T> {
 		if(create) f.getParentFile().mkdirs();
 		return f;
 	}
-	
-	//TODO move all these methods to other programs
-	
+
+	// TODO move all these methods to other programs
+
+	/**
+	 * Serializes an object into a {@code JSON} String
+	 * 
+	 * @param src Object to serialize
+	 * @return {@code JSON} String equivalent of that object
+	 */
 	public static String serializeObject(Object src) {
 		return objectJSON.toJson(src);
 	}
 
-	
+	/**
+	 * Deserializes an object from a {@code JSON} string to the respective Object
+	 * 
+	 * @param json  The {@code JSON} string to deserialize
+	 * @param Class The Class of the object to deserialize. Ex: {@code Settings.class}
+	 * @return The Object, of the given {@code Class} from the serialized data
+	 */
 	public static Object deserializeObject(String json, Type Class) {
-		return objectJSON.fromJson(json,Class.getClass());
+		return objectJSON.fromJson(json, Class.getClass());
 	}
-	
+
+	/**
+	 * Serializes an object with static variables
+	 * 
+	 * @param src Object to serialize
+	 * @return {@code JSON} String equivalent of that class
+	 */
 	public static String serializeClass(Object src) {
 		return staticJSON.toJson(src);
 	}
-	
+
+	/**
+	 * Deserializes an object from a {@code JSON} string to the respective Object, including any static
+	 * variables
+	 * <p>
+	 * Static variables will be set, so there is no need to do anything with the return value if all you
+	 * need is the static variables
+	 * 
+	 * @param json  The {@code JSON} string to deserialize, incuding static variables
+	 * @param Class The Class of the object to deserialize. Ex: {@code Settings.class}
+	 * @return Object of the serialized class
+	 */
 	public static Object deserializeClass(String json, Type Class) {
 		return staticJSON.fromJson(json, Class.getClass());
 	}
-	
+
+	/**
+	 * Deserializes an object from a {@code JSON} string to the respective Object, including any static
+	 * variables
+	 * <p>
+	 * Static variables will be set, so there is no need to do anything with the return value if all you
+	 * need is the static variables
+	 * 
+	 * @param reader The {@link BufferedReader Buffered Reader} to read the json from
+	 * @param Class  The Class of the object to deserialize. Ex: {@code Settings.class}
+	 * @return Object of the serialized class
+	 */
 	public static Object deserializeClass(BufferedReader reader, Type Class) {
 		return staticJSON.fromJson(reader, Class.getClass());
 	}
-	
+
 	/**
 	 * Writes a set of data to a file
 	 * 
@@ -151,6 +191,8 @@ public class Data<T> {
 	 * <b>Registered Classes:</b>
 	 * <ul>
 	 * <li>{@link ZoneId}</li>
+	 * <li>{@link ZonedDateTime}</li>
+	 * <li>{@link LocalDateTime}</li>
 	 * </ul>
 	 * 
 	 * @return A {@link GsonBuilder}
