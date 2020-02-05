@@ -15,6 +15,7 @@ import application.Data;
  * <b>Settings:</b>
  * <ul>
  * <li>{@link #startMaximized}</li>
+ * <li>{@link #showSeconds}</li>
  * </ul>
  * 
  * @author Tealeaf
@@ -35,7 +36,8 @@ public class Settings {
 	public static boolean showSeconds = false;
 
 	/**
-	 * Default list of {@link ZoneId Time Zones} to include
+	 * Default list of {@code ZoneId} to include
+	 * @see ZoneId
 	 */
 	public static List<ZoneId> defaultZones = Arrays.asList(ZoneId.systemDefault());
 
@@ -46,8 +48,6 @@ public class Settings {
 
 		try {
 			// Uses a static JSON to load the contents from the settings file, if it exists
-			// Data.staticJSON.fromJson(Files.newBufferedReader(Data.getAppFile(true,
-			// "Settings.json").toPath()), Settings.class);
 			Data.deserializeClass(Files.newBufferedReader(Data.getAppFile(true, "Settings.json").toPath()), Settings.class);
 		} catch(IOException e) {}
 

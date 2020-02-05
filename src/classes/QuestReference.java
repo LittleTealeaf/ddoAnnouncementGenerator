@@ -23,7 +23,9 @@ public class QuestReference {
 	 * Creates a default Quest Reference from a Quest<br>
 	 * Chooses the highest {@link LevelRange level range} that the {@link Quest quest} is part of
 	 * 
-	 * @param quest - the {@link Quest} to reference
+	 * @param quest - the {@code Quest} to reference
+	 * @see LevelRange
+	 * @see Quest
 	 */
 	public QuestReference(Quest quest) {
 		this.quest = quest;

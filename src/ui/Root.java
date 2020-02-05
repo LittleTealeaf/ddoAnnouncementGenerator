@@ -1,6 +1,5 @@
 package ui;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import application.Data;
@@ -9,7 +8,6 @@ import classes.Settings;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;

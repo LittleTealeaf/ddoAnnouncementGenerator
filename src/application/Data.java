@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Writer;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -29,10 +28,9 @@ import net.harawata.appdirs.AppDirsFactory;
  * file locations, etc.
  * 
  * @author Tealeaf
- * @param <T>
  *
  */
-public class Data<T> {
+public class Data {
 
 	/**
 	 * The directory of the application local memory.<br>

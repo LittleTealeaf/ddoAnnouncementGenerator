@@ -75,7 +75,9 @@ public class Quest {
 	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
 	 *                 it allows for 12 players to participate.
 	 *                 It is not a raid if it only allows a maximum of 6 players or hirelings to
-	 *                 enter. <i>Hirelings cannot enter raids</i>
+	 *                 enter.
+	 *                 <p>
+	 *                 <i>Hirelings cannot enter raids</i>
 	 * @see QuestVersion
 	 */
 	public Quest(String name, List<QuestVersion> versions, boolean isRaid) {
@@ -91,10 +93,11 @@ public class Quest {
 	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
 	 *                 it allows for 12 players to participate. <br>
 	 *                 It is not a raid if it only allows a maximum of 6 players or hirelings to
-	 *                 enter.<br>
-	 *                 <br>
+	 *                 enter.
+	 *                 <p>
 	 *                 <i>Hirelings cannot enter raids</i>
 	 * @param pack     - The adventure pack that the {@link Quest} is part of
+	 * @see QuestVersion
 	 */
 	public Quest(String name, List<QuestVersion> versions, boolean isRaid, String pack) {
 		this(name, UUID.randomUUID().toString(), versions, isRaid, pack);
@@ -143,9 +146,11 @@ public class Quest {
 	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
 	 *                 it allows for 12 players to participate. <br>
 	 *                 It is not a raid if it only allows a maximum of 6 players or hirelings to
-	 *                 enter.<br>
-	 *                 <br>
+	 *                 enter.
+	 *                 <p>
 	 *                 <i>Hirelings cannot enter raids</i>
+	 * @see QuestVersion
+	 * @see UUID
 	 */
 	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid) {
 		this(name, uuid, versions, isRaid, "");
@@ -164,10 +169,12 @@ public class Quest {
 	 * @param isRaid   - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
 	 *                 it allows for 12 players to participate. <br>
 	 *                 It is not a raid if it only allows a maximum of 6 players or hirelings to
-	 *                 enter.<br>
-	 *                 <br>
+	 *                 enter.
+	 *                 <p>
 	 *                 <i>Hirelings cannot enter raids</i>
 	 * @param pack     - The adventure pack that the {@link Quest} is part of
+	 * @see QuestVersion
+	 * @see UUID
 	 */
 	public Quest(String name, String uuid, List<QuestVersion> versions, boolean isRaid, String pack) {
 		// This is where all other constructors eventually lead to
@@ -241,9 +248,11 @@ public class Quest {
 	/**
 	 * Gets the Quest type
 	 * 
-	 * @return {@code true} - if the {@link Quest quest} is a raid, and allows for a total of 12 players
+	 * @return <b>{@code true}</b> - if the {@link Quest quest} is a raid, and allows for a total of 12
+	 *         players
 	 *         to enter<br>
-	 *         {@code false} - if the {@link Quest quest} is not a raid and only allows for a maximum of
+	 *         <b>{@code false}</b> - if the {@link Quest quest} is not a raid and only allows for a
+	 *         maximum of
 	 *         6 players to
 	 *         join.
 	 */
@@ -257,8 +266,8 @@ public class Quest {
 	 * @param isRaid - Whether or not the {@link Quest} is a raid. A {@link Quest quest} is a raid if
 	 *               it allows for 12 players to participate. <br>
 	 *               It is not a raid if it only allows a maximum of 6 players or hirelings to
-	 *               enter.<br>
-	 *               <br>
+	 *               enter.
+	 *               <p>
 	 *               <i>Hirelings cannot enter raids</i>
 	 */
 	public void setRaid(boolean isRaid) {
@@ -318,6 +327,7 @@ public class Quest {
 	 *                there are any {@link QuestVersion Quest Versions} that already has the given
 	 *                {@link LevelRange Level Range} (<i>The {@link LevelRange} in the
 	 *                {@link QuestVersion}</i>), it will replace the first one
+	 * @see QuestVersion
 	 */
 	public void setVersion(QuestVersion version) {
 		for(int i = 0; i < versions.size(); i++) if(versions.get(i).levelRange.equals(version.levelRange)) {

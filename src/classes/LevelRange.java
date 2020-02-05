@@ -3,13 +3,13 @@ package classes;
 /**
  * An Enumerator that describes a {@link Quest quest's} Level Range
  * <ul>
- * <li><b>HEROIC</b> - {@link Quest Quests} levels 1-20</li>
- * <li><b>EPIC</b> - {@link Quest Quests} levels 21-27</li>
- * <li><b>LEGENDARY</b> - {@link Quest Quests} levels 28+</li>
+ * <li><b>{@link #HEROIC}</b> - {@link Quest Quests} levels 1-20</li>
+ * <li><b>{@link #EPIC}</b> - {@link Quest Quests} levels 21-27</li>
+ * <li><b>{@link #LEGENDARY}</b> - {@link Quest Quests} levels 28+</li>
  * </ul>
  * 
  * @author Tealeaf
- *
+ * @see Quest
  */
 public enum LevelRange {
 
