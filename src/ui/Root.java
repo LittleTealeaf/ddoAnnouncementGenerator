@@ -46,8 +46,6 @@ public class Root extends Application {
 			bExec.setOnAction(e -> {
 				Announcement a = new Announcement();
 				a.setTime(picker.getValue());
-
-				picker.setValue(ZonedDateTime.now().plusHours(10));
 				area.setText(Data.serializeObject(a));
 			});
 

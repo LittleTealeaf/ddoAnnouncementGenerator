@@ -31,6 +31,7 @@ public class Quest {
 	private String name;
 	private String uuid;
 	private String pack;
+	private String flagging;
 	private boolean isRaid;
 	private List<QuestVersion> versions;
 
@@ -181,6 +182,21 @@ public class Quest {
 		this.name = name;
 		this.uuid = uuid;
 		this.pack = pack;
+		this.isRaid = isRaid;
+		this.versions = versions;
+	}
+
+	// TODO new constructors
+
+	public Quest(String name, List<QuestVersion> versions, String flagging, boolean isRaid, String pack) {
+		this(name, UUID.randomUUID().toString(), versions, flagging, isRaid, pack);
+	}
+
+	public Quest(String name, String uuid, List<QuestVersion> versions, String flagging, boolean isRaid, String pack) {
+		this.name = name;
+		this.uuid = uuid;
+		this.pack = pack;
+		this.flagging = flagging;
 		this.isRaid = isRaid;
 		this.versions = versions;
 	}
@@ -356,6 +372,15 @@ public class Quest {
 		for(QuestVersion v : versions) r += "\n\t" + v.toString();
 
 		return r;
+	}
+
+	// TODO comments
+	public String getFlagging() {
+		return flagging;
+	}
+
+	public void setFlagging(String flagging) {
+		this.flagging = flagging;
 	}
 
 	/**

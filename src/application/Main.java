@@ -2,6 +2,7 @@ package application;
 
 import classes.LevelRange;
 import classes.Quest;
+import classes.Quests;
 import classes.Quest.QuestVersion;
 import classes.Settings;
 import ui.Root;
@@ -23,6 +24,7 @@ public class Main {
 		quest.setPack("Dawn of Dragonborn");
 
 		Settings.loadSettings();
+		Quests.load();
 		Root.display(args);
 	}
 }
