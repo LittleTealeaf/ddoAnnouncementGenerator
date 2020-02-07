@@ -21,7 +21,6 @@ public class LoadedQuests {
 	public static List<Quest> getQuests() {
 		List<Quest> r = new ArrayList<>();
 
-		//Raids, as found on ddowiki
 		r.add(new Quest("A Vision of Destruction", Collections.singletonList(new QuestVersion(LevelRange.HEROIC, 18)), "No Flagging Required", true, "The Vale of Twilight"));
 		r.add(new Quest("Ascension Chamber", Collections.singletonList(new QuestVersion(LevelRange.HEROIC, 17)), "A Complete Sigil, and completion of the 4 Litany paths", true, "The Necropolis, Part 4"));
 		r.add(new Quest("Caught in the Web", Collections.singletonList(new QuestVersion(LevelRange.EPIC, 24, 20, 30)), "Eveningstar Chains 1-3", true, "Menace of the Underdark"));
