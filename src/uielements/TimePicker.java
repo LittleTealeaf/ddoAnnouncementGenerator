@@ -1,8 +1,5 @@
 package uielements;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Spinner;
@@ -11,6 +8,9 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.util.StringConverter;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A class that represents a spinner for time
@@ -109,7 +109,7 @@ public class TimePicker extends Spinner<LocalTime> {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-		StringConverter<LocalTime> localTimeConverter = new StringConverter<LocalTime>() {
+		StringConverter<LocalTime> localTimeConverter = new StringConverter<>() {
 
 			@Override
 			public String toString(LocalTime time) {
@@ -128,7 +128,9 @@ public class TimePicker extends Spinner<LocalTime> {
 
 			private int getIntField(String[] tokens, int index) {
 
-				if(tokens.length <= index || tokens[index].isEmpty()) { return 0; }
+				if (tokens.length <= index || tokens[index].isEmpty()) {
+					return 0;
+				}
 
 				return Integer.parseInt(tokens[index]);
 			}
@@ -138,10 +140,12 @@ public class TimePicker extends Spinner<LocalTime> {
 		// and vetoes any edits that are not valid. We just make sure we have
 		// two colons and only digits in between:
 
-		TextFormatter<LocalTime> textFormatter = new TextFormatter<LocalTime>(localTimeConverter, LocalTime.now(), c -> {
+		TextFormatter<LocalTime> textFormatter = new TextFormatter<>(localTimeConverter, LocalTime.now(), c -> {
 			String newText = c.getControlNewText();
 
-			if(newText.matches("[0-9]{0,2}:[0-9]{0,2}:[0-9]{0,2}")) { return c; }
+			if (newText.matches("[0-9]{0,2}:[0-9]{0,2}:[0-9]{0,2}")) {
+				return c;
+			}
 
 			return null;
 		});
@@ -149,7 +153,7 @@ public class TimePicker extends Spinner<LocalTime> {
 		// The spinner value factory defines increment and decrement by
 		// delegating to the current editing mode:
 
-		SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<LocalTime>() {
+		SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<>() {
 
 			{
 				setConverter(localTimeConverter);
@@ -182,9 +186,9 @@ public class TimePicker extends Spinner<LocalTime> {
 			int hrIndex = this.getEditor().getText().indexOf(':');
 			int minIndex = this.getEditor().getText().indexOf(':', hrIndex + 1);
 
-			if(caretPos <= hrIndex) {
+			if (caretPos <= hrIndex) {
 				mode.set(Mode.HOURS);
-			} else if(caretPos <= minIndex) {
+			} else if (caretPos <= minIndex) {
 				mode.set(Mode.MINUTES);
 			} else {
 				mode.set(Mode.SECONDS);
@@ -192,26 +196,26 @@ public class TimePicker extends Spinner<LocalTime> {
 
 		});
 
-		/**
+		/*
 		 * Uses the tab key to swap between hour, minute, and time
-		 * 
+		 *
 		 * @author Tealeaf
 		 */
 		this.getEditor().setOnKeyPressed(key -> {
 
-			if(key.getCode() == KeyCode.TAB) {
+			if (key.getCode() == KeyCode.TAB) {
 
-				if(!key.isShiftDown()) {
+				if (!key.isShiftDown()) {
 
 					switch (mode.get()) {
-					case HOURS:
-						this.requestFocus();
-						mode.set(Mode.MINUTES);
-						break;
-					case MINUTES:
-						this.requestFocus();
-						mode.set(Mode.SECONDS);
-						break;
+						case HOURS:
+							this.requestFocus();
+							mode.set(Mode.MINUTES);
+							break;
+						case MINUTES:
+							this.requestFocus();
+							mode.set(Mode.SECONDS);
+							break;
 					default:
 					}
 

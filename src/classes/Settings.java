@@ -1,12 +1,12 @@
 package classes;
 
+import application.Data;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.ZoneId;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import application.Data;
 
 /**
  * A Class that describes any user-based settings.<br>
@@ -21,6 +21,7 @@ import application.Data;
  * @author Tealeaf
  *
  */
+@SuppressWarnings ("CanBeFinal")
 public class Settings {
 
 	public Settings() {}
@@ -37,9 +38,10 @@ public class Settings {
 
 	/**
 	 * Default list of {@code ZoneId} to include
+	 *
 	 * @see ZoneId
 	 */
-	public static List<ZoneId> defaultZones = Arrays.asList(ZoneId.systemDefault());
+	public static List<ZoneId> defaultZones = Collections.singletonList(ZoneId.systemDefault());
 
 	/**
 	 * Initially loads the settings
@@ -49,7 +51,7 @@ public class Settings {
 		try {
 			// Uses a static JSON to load the contents from the settings file, if it exists
 			Data.deserializeClass(Files.newBufferedReader(Data.getAppFile(true, "Settings.json").toPath()), Settings.class);
-		} catch(IOException e) {}
+		} catch (IOException ignored) {}
 
 		save();
 	}

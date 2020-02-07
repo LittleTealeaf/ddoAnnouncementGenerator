@@ -1,11 +1,11 @@
 package classes;
 
+import application.Data;
+import resources.LoadedQuests;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
-
-import application.Data;
-import resources.LoadedQuests;
 
 public class Quests {
 	
@@ -16,8 +16,8 @@ public class Quests {
 	public static void load() {
 		try {
 			Data.deserializeClass(Files.newBufferedReader(Data.getAppFile(true, "Quests.json").toPath()), Quests.class);
-		} catch(IOException e) {
-			
+		} catch (IOException ignored) {
+
 		}
 		
 		save();

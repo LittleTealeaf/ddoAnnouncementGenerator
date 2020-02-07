@@ -51,7 +51,7 @@ public class Quest {
 	 * @see Quest
 	 */
 	public Quest(String name) {
-		this(name, new ArrayList<QuestVersion>());
+		this(name, new ArrayList<>());
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Quest {
 	 * @see UUID
 	 */
 	public Quest(String name, String uuid) {
-		this(name, uuid, new ArrayList<QuestVersion>());
+		this(name, uuid, new ArrayList<>());
 	}
 
 	/**
@@ -365,13 +365,13 @@ public class Quest {
 	}
 
 	public String toString() {
-		String r = "";
-		r += "Quest: " + name + (isRaid ? " (Raid)" : " (Quest)");
-		r += "\nPack: " + pack;
-		r += "\nVersions:";
-		for(QuestVersion v : versions) r += "\n\t" + v.toString();
+		StringBuilder r = new StringBuilder();
+		r.append("Quest: ").append(name).append(isRaid ? " (Raid)" : " (Quest)");
+		r.append("\nPack: ").append(pack);
+		r.append("\nVersions:");
+		for (QuestVersion v : versions) r.append("\n\t").append(v.toString());
 
-		return r;
+		return r.toString();
 	}
 
 	// TODO comments
@@ -486,8 +486,8 @@ public class Quest {
 		 * @see Quest.QuestVersion#QuestVersion(LevelRange)
 		 */
 		public static List<QuestVersion> QuestVersions(LevelRange... levelRanges) {
-			List<QuestVersion> r = new ArrayList<QuestVersion>();
-			for(LevelRange range : levelRanges) r.add(new QuestVersion(range));
+			List<QuestVersion> r = new ArrayList<>();
+			for (LevelRange range : levelRanges) r.add(new QuestVersion(range));
 			return r;
 		}
 

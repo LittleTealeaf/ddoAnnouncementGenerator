@@ -1,32 +1,33 @@
 package uielements;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.HBox;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 /**
  * A Combo of a date picker and a time picker
- * 
+ *
  * @author Tealeaf
  *
  */
 public class DateTimePicker extends HBox {
 
-	
-	//Zoned Time property
-	private final ObjectProperty<ZonedDateTime> zonedTime = new SimpleObjectProperty<ZonedDateTime>(this, "Date Time");
 
-	private DatePicker date;
+	//Zoned Time property
+	private final ObjectProperty<ZonedDateTime> zonedTime = new SimpleObjectProperty<>(this, "Date Time");
+
+	private final DatePicker date;
 	private TimePicker time;
 
 	/**
 	 * Creates an empty {@code DateTimePicker}, using the System Default
 	 * <p>Uses {@link ZoneId#systemDefault()} as the pre-set Time
+	 *
 	 * @see ZoneId
 	 * @see LocalDateTime
 	 */

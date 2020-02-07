@@ -8,16 +8,15 @@ import java.util.List;
 /**
  * A Class representation of an announcement, including what quests / raids will be run, the time of
  * the event, time zones that it will include, etc.
- * 
- * @author Tealeaf
  *
+ * @author Tealeaf
  */
 public class Announcement {
 
 	private ZonedDateTime time;
-	private List<ZoneId> timeZones = new ArrayList<ZoneId>(Settings.defaultZones);
+	private List<ZoneId> timeZones = new ArrayList<>(Settings.defaultZones);
 
-	private List<QuestReference> quests = new ArrayList<QuestReference>();
+	private List<QuestReference> quests = new ArrayList<>();
 
 	public Announcement() {
 	}

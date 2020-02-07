@@ -1,7 +1,5 @@
 package ui;
 
-import java.time.ZonedDateTime;
-
 import application.Data;
 import classes.Announcement;
 import classes.Settings;
@@ -16,9 +14,9 @@ import javafx.stage.Stage;
 import uielements.DateTimePicker;
 import uielements.ZoneSelector;
 
-public class Root extends Application {
+import java.time.ZonedDateTime;
 
-	private static BorderPane root;
+public class Root extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -26,11 +24,11 @@ public class Root extends Application {
 		try {
 			primaryStage.setMaximized(Settings.startMaximized);
 			primaryStage.maximizedProperty().addListener((e, o, n) -> {
-				Settings.startMaximized = n.booleanValue();
+				Settings.startMaximized = n;
 				Settings.save();
 			});
 
-			root = new BorderPane();
+			BorderPane root = new BorderPane();
 
 			TextArea area = new TextArea();
 

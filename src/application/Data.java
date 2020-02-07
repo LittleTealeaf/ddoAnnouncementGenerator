@@ -1,27 +1,21 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-
 import javafx.scene.image.Image;
 import net.harawata.appdirs.AppDirsFactory;
+
+import java.io.*;
+import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Class consisting of various functions pertaining to the system, including JSON readers/writers,
@@ -36,7 +30,7 @@ public class Data {
 	 * The directory of the application local memory.<br>
 	 * For example, on windows this is often referred to the {@code %appdata%} location
 	 */
-	private static String appDir = AppDirsFactory.getInstance().getUserDataDir("DDO Announcement Generator", "", "Tealeaf", true);
+	private static final String appDir = AppDirsFactory.getInstance().getUserDataDir("DDO Announcement Generator", "", "Tealeaf", true);
 
 	/**
 	 * A {@code JSON} reader and writer that reads and writes static variables as well as non-static
@@ -49,7 +43,7 @@ public class Data {
 	private static Gson objectJSON;
 
 	/**
-	 * Initializes the {@link staticJSON} and {@link objectJSON} objects
+	 * Initializes the {@link Data#staticJSON} and {@link Data#objectJSON} objects
 	 * <p>
 	 * <i>This method is the first thing to be called in the {@link Main} class, otherwise everything
 	 * breaks</i>
@@ -100,7 +94,7 @@ public class Data {
 	 */
 	public static File getAppFile(boolean create, String... path) {
 		File f = new File(java.nio.file.Paths.get(appDir, path).toString());
-		if(create) f.getParentFile().mkdirs();
+		if (create && f.getParentFile().mkdirs()) System.out.println("Created Parent Directory of " + f.getPath());
 		return f;
 	}
 
@@ -158,11 +152,12 @@ public class Data {
 	 * <p>
 	 * Static variables will be set, so there is no need to do anything with the return value if all you
 	 * need is the static variables
-	 * 
+	 *
 	 * @param reader The {@link BufferedReader Buffered Reader} to read the json from
 	 * @param Class  The Class of the object to deserialize. Ex: {@code Settings.class}
 	 * @return Object of the serialized class
 	 */
+	@SuppressWarnings ("UnusedReturnValue")
 	public static Object deserializeClass(BufferedReader reader, Type Class) {
 		return staticJSON.fromJson(reader, Class);
 	}
@@ -179,7 +174,7 @@ public class Data {
 			FileWriter writer = new FileWriter(file);
 			writer.write(data);
 			writer.close();
-		} catch(Exception e) {}
+		} catch(Exception ignored) {}
 
 	}
 
@@ -272,7 +267,7 @@ public class Data {
 
 			private static class Converter {
 
-				private String id;
+				private final String id;
 
 				public Converter(ZoneId z) {
 					this.id = z.getId();

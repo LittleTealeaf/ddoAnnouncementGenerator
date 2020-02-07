@@ -26,12 +26,12 @@ public enum LevelRange {
 	 */
 	LEGENDARY("Legendary", "L");
 
-	private String fullName;
-	private String shortName;
+	private final String fullName;
+	private final String shortName;
 
 	/**
 	 * Creating the Level Range
-	 * 
+	 *
 	 * @param fullName  - the Full Name of the {@link LevelRange}
 	 * @param shortName - the Short Name of the {@link LevelRange}
 	 */
