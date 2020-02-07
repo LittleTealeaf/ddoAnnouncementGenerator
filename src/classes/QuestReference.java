@@ -68,6 +68,7 @@ public class QuestReference {
 	 * Forces an update of {@code questVersion}
 	 * 
 	 * @return the updated {@link QuestVersion}
+	 * @see QuestVersion
 	 */
 	private QuestVersion getUpdateQuestVersion() {
 		return(questVersion = quest.getVersion(levelRange));

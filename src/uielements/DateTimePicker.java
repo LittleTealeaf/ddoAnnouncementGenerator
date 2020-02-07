@@ -1,6 +1,5 @@
 package uielements;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -18,15 +17,28 @@ import javafx.scene.layout.HBox;
  */
 public class DateTimePicker extends HBox {
 
+	
+	//Zoned Time property
 	private final ObjectProperty<ZonedDateTime> zonedTime = new SimpleObjectProperty<ZonedDateTime>(this, "Date Time");
 
 	private DatePicker date;
 	private TimePicker time;
 
+	/**
+	 * Creates an empty {@code DateTimePicker}, using the System Default
+	 * <p>Uses {@link ZoneId#systemDefault()} as the pre-set Time
+	 * @see ZoneId
+	 * @see LocalDateTime
+	 */
 	public DateTimePicker() {
 		this(LocalDateTime.now().atZone(ZoneId.systemDefault()));
 	}
 
+	/**
+	 * Creates an empty {@code DateTimePicker}, using a set {@code ZonedDateTime}
+	 * @param zonedTime - The {@link ZonedDateTime} to initialize the selector with
+	 * @see ZonedDateTime
+	 */
 	public DateTimePicker(ZonedDateTime zonedTime) {
 		super();
 
@@ -43,6 +55,9 @@ public class DateTimePicker extends HBox {
 		this.setSpacing(10);
 	}
 
+	/*
+	 * Updates the date time
+	 */
 	private void updateDateTime() {
 		zonedTime.setValue(time.getValue().atDate(date.getValue()).atZone(ZoneId.systemDefault()));
 	}

@@ -184,7 +184,7 @@ public class Data {
 	}
 
 	/**
-	 * Create a gson builder with pre-set configuration
+	 * Create a {@code GSON} builder with pre-set configuration
 	 * <p>
 	 * <b>Registered Classes:</b>
 	 * <ul>
@@ -193,7 +193,7 @@ public class Data {
 	 * <li>{@link LocalDateTime}</li>
 	 * </ul>
 	 * 
-	 * @return A {@link GsonBuilder}
+	 * @return A pre-generated {@link GsonBuilder}
 	 */
 	private static GsonBuilder createBuilder() {
 		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
