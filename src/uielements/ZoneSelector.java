@@ -34,6 +34,8 @@ public class ZoneSelector extends VBox {
 
 	private ObservableList<ZoneId> zones;
 
+	//private static List<ZoneId> allZones = Arrays.asList(ZoneId.)
+
 	public ZoneSelector() {
 		this(Arrays.asList(ZoneId.systemDefault()));
 	}
