@@ -275,7 +275,6 @@ public class Data {
 			}
 		}
 
-		// TODO do I really need the LocalDateTimeAdapter?
 		/**
 		 * Adapter for the {@code LocalDateTime} class
 		 * 

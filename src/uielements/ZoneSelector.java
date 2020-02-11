@@ -1,5 +1,6 @@
 package uielements;
 
+import classes.Zone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
@@ -9,11 +10,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 import java.time.ZoneId;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Selector for specific Time Zones
@@ -33,15 +31,15 @@ public class ZoneSelector extends VBox {
 	private ScrollPane scrollPane;
 	private VBox list;
 
-	private ObservableList<ZoneId> zones;
+	private ObservableList<Zone> zones;
 
 	//private static List<ZoneId> allZones = Arrays.asList(ZoneId.)
 
 	public ZoneSelector() {
-		this(Arrays.asList(ZoneId.systemDefault()));
+		this(Arrays.asList(new Zone(ZoneId.systemDefault())));
 	}
 
-	public ZoneSelector(List<ZoneId> Ids) {
+	public ZoneSelector(List<Zone> Ids) {
 		super();
 		textField = new TextField();
 		scrollPane = new ScrollPane();
@@ -50,60 +48,38 @@ public class ZoneSelector extends VBox {
 		list = new VBox();
 		list.setSpacing(10);
 
+		textField.textProperty().addListener((e, o, n) -> {
+			updateList(n);
+		});
+
+		scrollPane.setContent(list);
+
 		updateList("");
 
 		this.getChildren().addAll(textField, scrollPane);
 	}
 
-	private void updateList(String filter) {
-		list.getChildren().clear();
-//		for (ZoneId id : zones) { // LIST ALL ZONES IN HEREEEEE
-//			//TODO if filter
-//			CheckBox checkbox = new CheckBox(id.getDisplayName(TextStyle.SHORT, Locale.getDefault()));
-//			checkbox.setSelected(zones.contains(id));
-//			checkbox.selectedProperty().addListener((e, o, n) -> {
-//				zones.remove(id);
-//				if (n) zones.add(id);
-//			});
-//			list.getChildren().add(checkbox);
-//		}
-		for (TimeZone timeZone : TimeZone.allZones()) {
-			if (timeZone.filterText().contains(filter)) {
-				CheckBox checkbox = new CheckBox(timeZone.displayName());
-				//CUSTOM CHECK METHOD
-				//might want to save time zones by zone id and such instead of the acutal class? maybe? soemrfawef?
-			}
-		}
+	public ObservableList<Zone> zoneProperty() {
+		return zones;
 	}
 
-	private static class TimeZone {
-		private ZoneId zone;
+	private void updateList(String filter) {
+		list.getChildren().clear();
+		for (Zone zone : Zone.allZones())
+			if (zone.isFilter(filter)) { //Gets all zones that fit the filter
+				CheckBox checkbox = new CheckBox(zone.getShortName() + " " + zone.getNarrowName() + " " + zone.getFullName() + " " + zone.getId());
 
-		public TimeZone(ZoneId zone) {
-			this.zone = zone;
-		}
+				boolean isSelected = false;
+				for (Zone a : zones) if (a.equals(zone)) isSelected = true;
+				checkbox.setSelected(isSelected);
+				//either make this into it's own method? or have it directly set the checkbox in "checkbox.setselected"
 
-		public static List<TimeZone> allZones() {
-			List<TimeZone> r = new ArrayList<TimeZone>();
-			for (String id : ZoneId.getAvailableZoneIds()) {
-				r.add(new TimeZone(ZoneId.of(id)));
+				checkbox.selectedProperty().addListener((e, o, n) -> {
+					if (!n && zones.contains(zone)) zones.remove(zone);
+					else if (!zones.contains(zone)) zones.add(zone);
+				});
+
+				list.getChildren().add(checkbox);
 			}
-			return r;
-		}
-
-		public String displayName() {
-			return zone.getDisplayName(TextStyle.SHORT, Locale.getDefault());
-		}
-
-		public ZoneId getZone() {
-			return zone;
-		}
-
-		public String filterText() {
-			String r = " " + zone.getDisplayName(TextStyle.FULL, Locale.getDefault());
-			r += " " + zone.getDisplayName(TextStyle.FULL, Locale.getDefault());
-			r += " " + zone.getDisplayName(TextStyle.NARROW, Locale.getDefault());
-			return r;
-		}
 	}
 }

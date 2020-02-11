@@ -3,6 +3,7 @@ package ui;
 import application.Data;
 import classes.Announcement;
 import classes.Settings;
+import classes.Zone;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +15,8 @@ import javafx.stage.Stage;
 import uielements.DateTimePicker;
 import uielements.ZoneSelector;
 
-import java.time.ZonedDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class Root extends Application {
 
@@ -35,21 +37,29 @@ public class Root extends Application {
 			// DEBUG
 
 			DateTimePicker picker = new DateTimePicker();
+			ZoneSelector selector = new ZoneSelector();
 
-			picker.setValue(ZonedDateTime.now());
+			VBox debug = new VBox(picker, selector);
 
-			VBox debug = new VBox(picker, new ZoneSelector());
 
 			Button bExec = new Button("Compile");
 			bExec.setOnAction(e -> {
 				Announcement a = new Announcement();
 				a.setTime(picker.getValue());
-				area.setText(Data.serializeObject(a));
+				for (Zone zone : selector.zoneProperty()) {
+					a.getTimeZones().add(zone.getZoneId());
+				}
+				String times = "";
+				for (ZoneId id : a.getTimeZones()) {
+					times += "\n" + id.getId() + " " + a.getTime().withZoneSameInstant(id).format(DateTimeFormatter.ofPattern("d MMM uuuu HH:mm:ss"));
+				}
+				area.setText(Data.serializeObject(a) + times);
 			});
 
 			HBox bottom = new HBox(bExec, area);
 
 			root.setCenter(debug);
+
 			root.setBottom(bottom);
 
 			// \DEBUG
