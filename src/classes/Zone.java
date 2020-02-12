@@ -3,11 +3,11 @@ package classes;
 import java.time.ZoneId;
 
 public enum Zone {
-    ET(ZoneId.of("US/NewYork"), "e", "Eastern Time"),
-    PT(ZoneId.of("US/Pacific"), "p", "Pacific Time"),
-    MT(ZoneId.of("US/Mountain"), "m", "Mountain Time"),
     AT(ZoneId.of("US/Alaska"), "a", "Alaska Time"),
-    HT(ZoneId.of("US/Hawaii"), "h", "Hawaii Time");
+    ET(ZoneId.of("US/NewYork"), "e", "Eastern Time"),
+    HT(ZoneId.of("US/Hawaii"), "h", "Hawaii Time"),
+    MT(ZoneId.of("US/Mountain"), "m", "Mountain Time"),
+    PT(ZoneId.of("US/Pacific"), "p", "Pacific Time");
 
 
     ZoneId id;
@@ -22,5 +22,17 @@ public enum Zone {
 
     public ZoneId getZone() {
         return id;
+    }
+
+    public String getNameLong() {
+        return longName;
+    }
+
+    public String getNameShort() {
+        return shortName;
+    }
+
+    public String toString() {
+        return longName;
     }
 }
