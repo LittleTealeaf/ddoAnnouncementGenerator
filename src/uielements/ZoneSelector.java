@@ -1,5 +1,7 @@
 package uielements;
 
+import classes.Zone;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -25,39 +27,12 @@ public class ZoneSelector extends VBox {
 
     //private ObservableList<Zone> zones;
 
-    //private static List<ZoneId> allZones = Arrays.asList(ZoneId.)
+    //private static List<ZoneId> allZones = Arrays.asList(ZoneId.)\
+
+    private ObservableList<Zone> zones;
 
     public ZoneSelector() {
         super();
-        //this(Arrays.asList(new Zone(ZoneId.systemDefault())));
+
     }
-
-//	public ZoneSelector(List<Zone> Ids) {
-//		super();
-//		textField = new TextField();
-//		scrollPane = new ScrollPane();
-//		//zones = FXCollections.observableArrayList(Ids);
-//
-//		list = new VBox();
-//		list.setSpacing(10);
-//
-//		textField.textProperty().addListener((e, o, n) -> {
-//			updateList(n);
-//		});
-//
-//		scrollPane.setContent(list);
-//
-//		updateList("");
-//
-//		this.getChildren().addAll(textField, scrollPane);
-//	}
-
-//	public ObservableList<Zone> zoneProperty() {
-//		return zones;
-//	}
-//
-//	private void updateList(String filter) {
-//		list.getChildren().clear();
-//
-//	}
 }
